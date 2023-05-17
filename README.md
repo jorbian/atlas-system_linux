@@ -17,10 +17,5 @@ using project-based peer learning. For more information, visit
 [this link](https://www.holbertonschool.com/).
 
 Documentation for this repository was at least partially redacted using other
-similar work by <[Brennan D. Baraban](https://github.com/bdbaraban)> and may contain 
+similar work by [Brennan D. Baraban](https://github.com/bdbaraban) and may contain 
 passages which coincide word for word with earlier writtings without further attribution.
-
-<p align="center">
-  <img src="http://www.holbertonschool.com/holberton-logo.png"
-       alt="Holberton School logo">
-</p>
