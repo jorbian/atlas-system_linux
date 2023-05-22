@@ -93,7 +93,7 @@ car_list *add_nodeint(car_list **head, const int car, int lap)
  * 
  * Return: void
 */
-void free_racers(car_list *first_car)
+void free_list(car_list *first_car)
 {
 
 	car_list *next_car = first_car;
