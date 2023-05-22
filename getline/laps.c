@@ -77,7 +77,9 @@ car_list *add_nodeint(car_list **head, const int car, int lap)
 	else
 	{
 		surfer = *head;
-		while (surfer->next != NULL && surfer->next->car < current->car)
+		while (
+			(surfer->next != NULL) && (surfer->next->car < current->car)
+		)
 			surfer = surfer->next;
 	}
 	current->next = surfer->next;
