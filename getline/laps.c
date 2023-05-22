@@ -1,10 +1,10 @@
 #include "laps.h"
+
 /**
  * race_state - finction to keep track or laps made
  * @id: array of car identifiers
  * @size: size of array
 */
-
 void race_state(int *id, size_t size)
 {
 	static car_list *new;
@@ -36,7 +36,6 @@ void race_state(int *id, size_t size)
  * print_list - prints list prints list of cars and the laps each car has made
  * @head: pointer to static variable
 */
-
 void print_list(car_list **head)
 {
 	car_list *temp = *head;
@@ -55,7 +54,6 @@ void print_list(car_list **head)
  * @lap: number of laps to initialize car with
  * Return: car_list struct
 */
-
 car_list *add_nodeint(car_list **head, const int car, int lap)
 {
 	car_list *current;
@@ -87,6 +85,7 @@ car_list *add_nodeint(car_list **head, const int car, int lap)
 	printf("Car %lu joined the race\n", current->car);
 	return (*head);
 }
+
 /**
  * free_list - frees the allocated memory
  * @head: pointer to linked list
@@ -102,6 +101,7 @@ void free_list(car_list *head)
 		head = temp;
 	}
 }
+
 /**
  * check_id - checks linked list to see if car is known
  * @head: pointer to address of linked list
