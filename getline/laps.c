@@ -86,20 +86,26 @@ car_list *add_nodeint(car_list **head, const int car, int lap)
 	return (*head);
 }
 
-/**
- * free_list - frees the allocated memory
- * @head: pointer to linked list
-*/
-void free_list(car_list *head)
-{
-	car_list *temp;
 
-	while (head)
+/**
+ * free_list - Deallocates all of the racers from memory
+ * @racer_head: The head node of the racer linked list
+ * 
+ * Return: void
+*/
+void free_racers(car_list *first_car)
+{
+
+	car_list *next_car = first_car;
+	car_list *car_to_free;
+
+	while (next_car)
 	{
-		temp = head->next;
-		free(head);
-		head = temp;
+		car_to_free = next_car;
+		next_car = next_car->next;
+		free(car_to_free);
 	}
+
 }
 
 /**
