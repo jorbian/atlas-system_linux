@@ -90,7 +90,7 @@ car_list *add_nodeint(car_list **head, const int car, int lap)
 /**
  * free_list - Deallocates all of the racers from memory
  * @racer_head: The head node of the racer linked list
- * 
+ *
  * Return: void
 */
 void free_list(car_list *first_car)
