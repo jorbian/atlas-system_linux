@@ -36,4 +36,4 @@ fd_t *fd_buffer(fd_t *head, const int fd);
 char *_strchr(char *s, char c, size_t size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
-#endif /* _GETLINE_H_ */
+#endif
