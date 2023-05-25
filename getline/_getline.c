@@ -34,14 +34,10 @@ char *_getline(const int fd)
 	file_buffer = fd_buffer(&head, fd);
 
 	if (file_buffer)
-	{
 		lineptr = read_to_buffer(file_buffer);
-	}
 
 	if (lineptr && lineptr[0] == '\n' && !lineptr[1])
-	{
 		lineptr[0] = 0;
-	}
 
 	return (lineptr);
 }
