@@ -1,9 +1,12 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char *argv[])
-{
-	(void)argc;
-	(void)argv;
+int main () {
+   char command[50];
 
-	return (0);
+   strcpy( command, "ls -l" );
+   system(command);
+
+   return(0);
 }
