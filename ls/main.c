@@ -6,7 +6,7 @@
  * main - this is the entry point for the program
  * @argc: num of arguments
  * @argv: what those arguments were
- * 
+ *
  * Return: 0
 */
 int main(int argc, char *argv[])
