@@ -17,8 +17,7 @@ int main(void)
 	while ((dp = readdir(dir)) != NULL)
 	{
 		file_name = dp->d_name;
-		is_not_dot = !(file_name[0] == '.');
-		if (is_not_dot)
+		if (!(file_name[0] == '.'))
 			printf("%s\n", file_name);
 	}
 	closedir(dir);
