@@ -9,7 +9,6 @@
 int main(void)
 {
 	DIR *dir;
-	int is_not_dot = 0;
 	struct dirent *dp;
 	char *file_name;
 
