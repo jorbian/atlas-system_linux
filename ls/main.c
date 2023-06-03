@@ -16,7 +16,7 @@ void main()
 		if (is_not_dot)
 		{
 			file_name = dp->d_name;
-			printf("file_name: '%s'\n", file_name);
+			printf("%s\n", file_name);
 		}
 	}
 	closedir(dir);
