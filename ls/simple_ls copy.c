@@ -10,9 +10,9 @@ void empty_asm(void)
  *
  * Return: returns 0
 */
-void main(void)
+int main(void)
 {
-	simple_ls();
+	empty_asm();
 
 	return (0);
 }
