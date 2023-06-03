@@ -5,7 +5,6 @@
 int main()
 {
 	DIR *dir;
-	int is_not_dot;
 	struct dirent *dp;
 	char *file_name;
 
