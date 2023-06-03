@@ -2,7 +2,7 @@
 #include <dirent.h>
 #include <string.h>
 
-void main()
+int main()
 {
 	DIR *dir;
 	int is_not_dot;
@@ -20,4 +20,6 @@ void main()
 		}
 	}
 	closedir(dir);
+
+	return (0);
 }
