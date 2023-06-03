@@ -12,12 +12,8 @@ int main()
 	dir = opendir(".");
 	while ((dp=readdir(dir)) != NULL)
 	{
-		is_not_dot = !(!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."));
-		if (is_not_dot)
-		{
-			file_name = dp->d_name;
-			printf("%s\n", file_name);
-		}
+		file_name = dp->d_name;
+		printf("%s\n", file_name);
 	}
 	closedir(dir);
 
