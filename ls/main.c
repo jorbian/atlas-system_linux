@@ -1,18 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <dirent.h>
 #include <string.h>
 
-/**
- * main - this is the entry point for the program
- * @argc: num of arguments
- * @argv: what those arguments were
- *
- * Return: 0
-*/
-int main(int argc, char *argv[])
+void main()
 {
-	(void)argc;
-	(void)argv;
+	DIR *dir;
+	int is_not_dot;
+	struct dirent *dp;
+	char *file_name;
 
-	return (0);
+	dir = opendir(".");
+	while ((dp=readdir(dir)) != NULL)
+	{
+		is_not_dot = !(!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."));
+		if (is_not_dot)
+		{
+			file_name = dp->d_name;
+			printf("file_name: '%s'\n", file_name);
+		}
+	}
+	closedir(dir);
 }
