@@ -55,7 +55,7 @@ void list_directory(const char *directory_path) {
 
     while ((entry = readdir(dir)) != NULL) {
         char file_path[MAX_PATH_LENGTH];
-        snprintf(file_path, sizeof(file_path), "%s/%s", directory_path, entry->d_name);
+        sprintf(file_path, "%s/%s", directory_path, entry->d_name);
         print_file_info(file_path);
     }
 
