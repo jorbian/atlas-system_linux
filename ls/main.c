@@ -67,6 +67,8 @@ void list_directory(const char *directory_path) {
 
 int main(int argc, char *argv[]) {
 
+    (void)argc;
+    (void)argv;
     /*if (argc != 2) {
         fprintf(stderr, "Usage: %s directory\n", argv[0]);
         exit(EXIT_FAILURE);
