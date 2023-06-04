@@ -1,12 +1,16 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 void simple_ls(void) {
-    const char *command = "ls";
-    char shell_command[256];
-
-    sprintf(shell_command, "/bin/sh -c '%s'", command);
-    system(shell_command);
+    FILE *pipe = popen("ls", "r");
+    if (pipe) {
+        char buffer[128];
+        while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
+            printf("%s", buffer); // Or perform any desired operations on the output
+        }
+        pclose(pipe);
+    } else {
+        perror("popen");
+    }
 }
 
 int main() {
