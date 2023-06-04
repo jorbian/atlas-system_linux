@@ -13,17 +13,19 @@
 #define MAX_PATH_LENGTH 1024
 
 void print_file_info(const char *filename) {
+    char mod_time[20];
+    char permissions[11];
+
     struct stat file_stats;
+    struct passwd *user = getpwuid(file_stats.st_uid);
+    struct group *group = getgrgid(file_stats.st_gid);
+
     if (lstat(filename, &file_stats) == -1) {
         perror("lstat");
         exit(EXIT_FAILURE);
     }
 
-    struct passwd *user = getpwuid(file_stats.st_uid);
-    struct group *group = getgrgid(file_stats.st_gid);
-    char permissions[11];
-
-    // Get file permissions
+    /* Get file permissions */
     permissions[0] = (S_ISDIR(file_stats.st_mode)) ? 'd' : '-';
     permissions[1] = (file_stats.st_mode & S_IRUSR) ? 'r' : '-';
     permissions[2] = (file_stats.st_mode & S_IWUSR) ? 'w' : '-';
@@ -36,7 +38,6 @@ void print_file_info(const char *filename) {
     permissions[9] = (file_stats.st_mode & S_IXOTH) ? 'x' : '-';
     permissions[10] = '\0';
 
-    char mod_time[20];
     strftime(mod_time, sizeof(mod_time), "%b %d %H:%M", localtime(&file_stats.st_mtime));
 
     printf("%s %2ld %s %s %5ld %s %s\n", permissions, file_stats.st_nlink, user->pw_name, group->gr_name,
