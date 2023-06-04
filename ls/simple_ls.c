@@ -2,8 +2,7 @@
 
 
 void simple_ls(void) {
-	const char *filename = "/bin/ls";
-	const char *argv[] = {filename, NULL};
+	const char *argv[] = {"/bin/ls", NULL};
 	const char *envp[] = {NULL};
 
 	asm volatile (
@@ -13,7 +12,7 @@ void simple_ls(void) {
 		"movq %2, %%rdx\n"
 		"syscall\n"
 		:
-		: "r"(filename), "r"(argv), "r"(envp)
+		: "r"("/bin/ls"), "r"(argv), "r"(envp)
 		: "%rax", "%rdi", "%rsi", "%rdx"
 	);
 }
