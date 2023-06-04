@@ -13,7 +13,7 @@
 #define MAX_PATH_LENGTH 1024
 
 void print_file_info(const char *filename) {
-    char mod_time[20];
+    char mod_time[20] = "Jan 01 00:00";
     char permissions[11];
 
     struct stat file_stats;
@@ -38,7 +38,7 @@ void print_file_info(const char *filename) {
     permissions[9] = (file_stats.st_mode & S_IXOTH) ? 'x' : '-';
     permissions[10] = '\0';
 
-    strftime(mod_time, sizeof(mod_time), "%b %d %H:%M", localtime(&file_stats.st_mtime));
+    /* strftime(mod_time, sizeof(mod_time), "%b %d %H:%M", localtime(&file_stats.st_mtime)); */
 
     printf("%s %2ld %s %s %5ld %s %s\n", permissions, file_stats.st_nlink, user->pw_name, group->gr_name,
            file_stats.st_size, mod_time, filename);
