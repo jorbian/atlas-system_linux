@@ -67,10 +67,10 @@ void list_directory(const char *directory_path) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc != 2) {
+    /*if (argc != 2) {
         fprintf(stderr, "Usage: %s directory\n", argv[0]);
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     list_directory(".");
 
