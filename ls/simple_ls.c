@@ -1,33 +1,24 @@
-/**
- * simple_ls - a non hardend version of what we're doing for task one
- *
- * Description: TBA
-*/
-void simple_ls(void)
-{
-	const char *argv[] = {"/bin/sh", "-c", "ls", (void *)0};
+#define NULL (void *)0
 
-	__asm__ (
-		"mov $0, %%rax\n\t" /* Set the rax register to 0 */
-		"mov $0x3b, %%eax\n\t" /*Set lower 32 bts of rax to 0x3b (sys_execve)*/
-		"mov %0, %%rdi\n\t" /* Set the rdi register to the shell path address */
-		"mov %1, %%rsi\n\t" /* Set the rsi register to the argv array address */
-		"xor %%rdx, %%rdx\n\t" /* Set rdx register to 0 */
-		"syscall\n\t" /* Call the Linux system call */
+
+void simple_ls(void) {
+	const char *filename = "/bin/ls";
+	const char *argv[] = {filename, NULL};
+	const char *envp[] = {NULL};
+
+	asm volatile (
+		"movq $59, %%rax\n"
+		"movq %0, %%rdi\n"
+		"movq %1, %%rsi\n"
+		"movq %2, %%rdx\n"
+		"syscall\n"
 		:
-		: "r"("/bin/sh"), "r"(argv)
+		: "r"(filename), "r"(argv), "r"(envp)
 		: "%rax", "%rdi", "%rsi", "%rdx"
 	);
 }
 
-/**
- * main - the entry point for the program
- *
- * Return: returns 0
-*/
-int main(void)
-{
+int main() {
 	simple_ls();
-
-	return (0);
+	return 0;
 }
