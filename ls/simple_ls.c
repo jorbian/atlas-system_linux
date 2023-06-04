@@ -1,23 +1,15 @@
-#define NULL (void *)0
-
+#include <stdio.h>
+#include <stdlib.h>
 
 void simple_ls(void) {
-	const char *argv[] = {"/bin/ls", NULL};
-	const char *envp[] = {NULL};
+    const char *command = "ls";
+    char shell_command[256];
 
-	asm volatile (
-		"movq $59, %%rax\n"
-		"movq %0, %%rdi\n"
-		"movq %1, %%rsi\n"
-		"movq %2, %%rdx\n"
-		"syscall\n"
-		:
-		: "r"("/bin/ls"), "r"(argv), "r"(envp)
-		: "%rax", "%rdi", "%rsi", "%rdx"
-	);
+    sprintf(shell_command, "/bin/sh -c '%s'", command);
+    system(shell_command);
 }
 
 int main() {
-	simple_ls();
-	return 0;
+    simple_ls();
+    return 0;
 }
