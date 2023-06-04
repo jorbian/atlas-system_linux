@@ -5,7 +5,7 @@ void simple_ls(void) {
     if (pipe) {
         char buffer[128];
         while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
-            printf("%s", buffer); // Or perform any desired operations on the output
+            printf("%s", buffer);
         }
         pclose(pipe);
     } else {
