@@ -26,24 +26,24 @@ char *_strdup(const char *old_string)
 
 /**
  * _strcmp - case insensitive reimplementation of _strcmp
- * @s1: first string to look at
- * @s2: second string to look at
+ * @str1: first string to look at
+ * @str2: second string to look at
  *
  * Return: the place where they start to differ
 */
-int _strcmp(const char* str1, const char* str2)
+int _strcmp(const char *str1, const char *str2)
 {
 	int diff;
 
-    while (*str1 && *str2)
+	while (*str1 && *str2)
 	{
-        diff = TOLOWER((unsigned char)*str1) - TOLOWER((unsigned char)*str2);
-        if (diff != 0)
-            return diff;
-        str1++;
-        str2++;
-    }
-    return (TOLOWER((unsigned char)*str1) - TOLOWER((unsigned char)*str2));
+		diff = TOLOWER((unsigned char)*str1) - TOLOWER((unsigned char)*str2);
+		if (diff != 0)
+			return (diff);
+		str1++;
+		str2++;
+	}
+	return (TOLOWER((unsigned char)*str1) - TOLOWER((unsigned char)*str2));
 }
 
 /**
@@ -58,7 +58,6 @@ int _strlen(const char *s)
 
 	for (n = 0; s[n]; n++)
 		;
-
 	return (n);
 }
 

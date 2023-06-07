@@ -13,7 +13,7 @@
 char *_strdup(const char *old_string);
 int _strcmp(const char *s1, const char *s2);
 int _strlen(const char *s);
-void *_memcpy(void* destination, const void* source, size_t num);
+void *_memcpy(void *destination, const void *source, size_t num);
 void quick_sort(void *base, size_t len, size_t element_size,
 	int (*comp)(const void *, const void *));
 int string_comp(const void *a, const void *b);
@@ -21,7 +21,7 @@ int string_comp(const void *a, const void *b);
 /* LIFE AND DEATH OF STRING ARRAYS */
 char **new_string_array(size_t length);
 void list_string_array(char **array);
-char **search_array(char **array, size_t length, int (*terms)(const char*));
+char **search_array(char **array, size_t length, int (*terms)(const char *));
 void free_string_array(char **array);
 
 #endif

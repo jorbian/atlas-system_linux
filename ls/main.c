@@ -2,10 +2,10 @@
 
 int main(int argc, char **argv)
 {
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 
-    simple_listing(".");
+	simple_listing(".");
 
-    return (0);
+	return (0);
 }
