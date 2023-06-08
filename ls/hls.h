@@ -47,7 +47,9 @@ typedef struct DirectoryLister
 size_t ping_dir_len(const char *path);
 char **just_get_names(const char *path, size_t num_entries);
 void simple_listing(char const *path);
+void _simple_listing(char const *path);
 int no_flag(const char *arg_value);
+int has_flag(const char *arg_value);
 int is_name_of_hidden_item(const char *arg_value);
 
 dir_ls *create_dir_lister(int argc, char **argv);
