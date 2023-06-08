@@ -70,13 +70,12 @@ char **search_array(char **array, size_t length, int (*terms)(const char *))
 
 	size_t i = 0;
 	size_t j = 0;
-	size_t num_of_hits = 0;
 
-	for (i = 0; i < length; i++)
-	{
-		if (terms(array[i]))
-			num_of_hits++;
-	}
+	size_t num_of_hits = get_num_of_matches(
+		array, length, terms
+	);
+	if (num_of_hits <= 0)
+		return (NULL);
 
 	matches = new_string_array(num_of_hits + 1);
 	if (matches == NULL)
@@ -92,5 +91,26 @@ char **search_array(char **array, size_t length, int (*terms)(const char *))
 	}
 	matches[num_of_hits] = NULL;
 
+	return (matches);
+}
+
+/**
+ * get_num_of_matches - how many matches an array will have
+ * @array: an array of strings to be looked at
+ * @len: number of items it contains
+ * @terms: function pointer to criteria being used
+ *
+ * Return: How many indecies the new array must have
+*/
+size_t get_num_of_matches(char **array, size_t len, int (*terms)(const char *))
+{
+	size_t i = 0;
+	size_t matches = 0;
+
+	for (i = 0; i < len; i++)
+	{
+		if (terms(array[i]))
+			matches++;
+	}
 	return (matches);
 }

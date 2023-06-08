@@ -22,6 +22,7 @@ int string_comp(const void *a, const void *b);
 char **new_string_array(size_t length);
 void list_string_array(char **array);
 char **search_array(char **array, size_t length, int (*terms)(const char *));
+size_t get_num_of_matches(char **array, size_t len, int (*terms)(const char *));
 void free_string_array(char **array);
 
 #endif

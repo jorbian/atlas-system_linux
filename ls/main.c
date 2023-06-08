@@ -9,10 +9,13 @@
 */
 int main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
+	dir_ls *ls = create_dir_lister(argc, argv);
 
-	simple_listing(".");
+	if (ls)
+	{
+		activate_lister(ls);
+		deinitilize_dir_lister(ls);
+	}
 
 	return (0);
 }

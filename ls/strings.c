@@ -81,3 +81,20 @@ void *_memcpy(void *destination, const void *source, size_t num)
 
 	return (destination);
 }
+
+/**
+ * _strcpy - reimplementation of strcpy (courtsety of ChatGPT)
+ * @dest: place we're putting the copy
+ * @src: where we're copying the string from
+ *
+ * Description: I want to use fixed buffers a few places and so I needed
+ * this. I also needed to make sure the null character ends up on end.
+*/
+void _strcpy(char *dest, const char *src)
+{
+	size_t length = _strlen(src) + 1;
+
+	_memcpy(dest, src, length);
+
+	dest[length - 1] = '\0';
+}

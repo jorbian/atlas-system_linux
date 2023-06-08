@@ -69,6 +69,17 @@ int is_name_of_hidden_item(const char *arg_value)
 }
 
 /**
+ * no_flag - whether the first char is anything but 45
+ * @arg_value: individual arg passed to program
+ * 
+ * Return: Whether the dec value of its first char isn't 45
+*/
+int no_flag(const char *arg_value)
+{
+	return(FIRST_CHAR(arg_value) != 45);
+}
+
+/**
  * simple_listing - just enough to get tasks one and two done
  * @path: path to some directory
  *
@@ -86,7 +97,7 @@ void simple_listing(char const *path)
 
 	for (i = 0; i < length; i++)
 	{
-		if (!is_name_of_hidden_item(item_names[i]))
+		if (IS_NOT_HIDDEN(item_names[i]))
 			printf("%s  ", item_names[i]);
 	}
 	printf("\n");
