@@ -112,7 +112,7 @@ class ProcessPath(Path):
             raise ValueError
 
     def find_address_range(self, search_expr=_DEFAULT_ADDRESS_SEARCH):
-        """SEARCHES THE PROCESS'S MAP FILE TO FIND ADDRESS RANGE MATCHING EXPR"""
+        """SEARCHES PROCESS'S MAP FILE TO FIND ADDRESS RANGE MATCHING EXPR"""
         map_file_obj = Path(
             "{}/maps".format(
                 self.resolve()
@@ -152,7 +152,7 @@ class ProcessPath(Path):
                 if position > -1:
                     location = start + position
                     file.seek(location)
-                    written = file.write(target_info["target"].encode() + b'\x00')
+                    file.write(target_info["target"].encode() + b'\x00')
                 else:
                     exit
         except Exception as excepts:

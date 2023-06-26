@@ -26,7 +26,7 @@ def read_write_heap(pid, target, replacement):
         raise ValueError(ERROR_MESSAGES["bad_input"])
 
     search_expression = re.compile(
-        "^([0-9a-f]{12})-([0-9a-f]{12})\s.*\[heap\]",
+        "^([0-9a-f]{12})-([0-9a-f]{12})\\s.*\\[heap\\]",
         flags=re.MULTILINE
     )
     heap_start, heap_end = target_process.find_address_range(
