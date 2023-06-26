@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"THIS IS THE CEREMONIAL DOCUMENTATION"
 import csv
 import os
 import re
@@ -130,7 +130,7 @@ class ProcessPath(Path):
         )
 
     def edit_value_in_range(self, addr_range, target_info):
-
+        "THIS IS THE CEREMONIAL DOCUMENTATION"
         addr_range = {
             key: int(value, 16) for (key, value) in addr_range.items()
         }
