@@ -52,7 +52,6 @@ Mkfile.old
 dkms.conf
 
 **/_*/
-**/*.py
 **/*.pl
 **/*.lua
 **/*.sh
