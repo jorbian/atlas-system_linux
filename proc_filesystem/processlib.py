@@ -71,9 +71,10 @@ class ProcessPath(Path):
                 self.resolve()
             )
         )
-        maps_file_contents = (
-            map_file_obj.read_text() if map_file_obj.exists else ""
-        )
+        with open(map_file_obj.resolve(), "r") as file:
+            maps_file_contents = (
+                file.read() if map_file_obj.exists else ""
+            )
         search_results = re.search(
             search_expr,
             maps_file_contents
