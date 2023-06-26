@@ -5,53 +5,6 @@ import os
 import re
 
 from pathlib import Path, _PosixFlavour
-from subprocess import run
-
-
-class Process():
-    """MORE GENERAL UTILITY CLASS FOR MANIPULATING POSIX PROCESSES"""
-    @staticmethod
-    def profile_active_processes():
-        """CREATES DICT SORTED BY PID ABOUT PROCESSES"""
-        ps = run(['ps', 'aux'], capture_output=True, text=True)
-        ps_output = (ps.stdout).split('\n')
-
-        csv_data = (",".join(y) for y in (x.split() for x in ps_output))
-
-        mapped_entry_data = {
-            data_row["PID"]: {
-                k: v for k, v in data_row.items() if k != "PID"
-            }
-            for data_row in csv.DictReader(csv_data)
-        }
-        return (mapped_entry_data)
-
-    @staticmethod
-    def search_process_name(term, yield_all=False):
-        """GEMERATOR FUNCION RETURNING PIDS WITH MATCHING NAME"""
-        ps = run(['ps', '-e'], capture_output=True, text=True)
-
-        ps_output = (
-            ",".join(y) for y in (
-                x.split() for x in (
-                        ps.stdout.split('\n')[1:]
-                    )
-            )
-        )
-        matches = (
-            entry[0] for entry in (
-                (
-                    row[0], row[-1]) for row in (
-                        row for row in csv.reader(ps_output) if row
-                ) if term in row[-1]
-            )
-        )
-        for m in matches:
-            if yield_all:
-                yield (m)
-            else:
-                yield (m)
-                return
 
 
 class ProcessPath(Path):

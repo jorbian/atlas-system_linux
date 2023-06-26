@@ -45,6 +45,8 @@ def read_write_heap(pid, target, replacement):
 
 
 if __name__ == "__main__":
+    """REPLACE A STRING IN THE HEAP OF A GIVEN PROCESS --
+    USAGE: ./read_write_heap.py <PID> <search str> <replacement str>"""
     if (len(sys.argv) < 4 or not sys.argv[1].isdigit()):
         print(__doc__, file=sys.stderr)
         exit(1)
