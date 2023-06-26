@@ -71,7 +71,7 @@ class ProcessPath(Path):
                 self.resolve()
             )
         )
-        with open(map_file_obj.resolve(), "r") as file:
+        with open(str(map_file_obj.resolve()), "r") as file:
             maps_file_contents = (
                 file.read() if map_file_obj.exists else ""
             )
@@ -99,7 +99,7 @@ class ProcessPath(Path):
             )
         )
         try:
-            with open(mem_file_obj.resolve(), "r+b") as file:
+            with open(str(mem_file_obj.resolve()), "r+b") as file:
                 file.seek(start)
                 heapy = file.read(end - start)
                 position = heapy.find(target_info["target"].encode())
