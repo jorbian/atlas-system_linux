@@ -95,24 +95,9 @@ char *flg_to_str32(char *retval, Elf32_Xword flags)
 }
 
 /**
- * print_keyflag_legend64 - Generate the output strings of legend
- * Return: void
-*/
-
-void print_keyflag_legend64(void)
-{
-	printf("Key to Flags:\n  W (write), A (alloc), X (execute), ");
-	printf("M (merge), S (strings), l (large)\n  I (info), L ");
-	printf("(link order), G (group), T (TLS), E (exclude), x (unknown)\n");
-	printf("  O (extra OS processing required) o (OS specific), ");
-	printf("p (processor specific)\n");
-}
-
-/**
  * print_keyflag_legend32 - Generate the output strings of legend
  * Return: void
 */
-
 void print_keyflag_legend32(void)
 {
 	printf("Key to Flags:\n  W (write), A (alloc), X (execute), ");
@@ -161,6 +146,6 @@ int print_shdr64(char *p)
 		printf("%3d ", shdr[i].sh_info);
 		printf("%2ld\n", shdr[i].sh_addralign);
 	}
-	print_keyflag_legend64();
+	print_keyflag_legend32();
 	return (EXIT_SUCCESS);
 }

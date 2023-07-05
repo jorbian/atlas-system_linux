@@ -1,12 +1,12 @@
 #include "task0.h"
 
 /**
- * checkelf - Check if the file is an ELF file
+ * is_elf - Check if the file is an ELF file
  * @ls: The first byte of the file
  * Return: void
 */
 
-int checkelf(char *ls)
+int is_elf(char *ls)
 {
 	if (
 	(unsigned char)ls[EI_MAG0] == 0x7f &&
@@ -72,20 +72,4 @@ void print_endianness(char *ls)
 	}
 	else
 		printf("  Data:%*s%s", 30, " ", "Unknown data format\n");
-}
-
-/**
- * print_elf_version - Print the elf header version
- * @ls: The first byte of the file
- * Return: void
-*/
-
-void print_elf_version(char *ls)
-{
-	if ((unsigned char)ls[EI_VERSION] == EV_CURRENT)
-		lineItemPrint("Version:", "1 (current)");
-	else if ((unsigned char)ls[EI_VERSION] == EV_NONE)
-		lineItemPrint("Version:", "Invalid version");
-	else
-		lineItemPrint("Version:", "Unknown version");
 }

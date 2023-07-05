@@ -18,7 +18,7 @@ void swapBytes(void *pv, size_t n);
 void lineItemPrint(char *label, char *value);
 void labelPrint(char *label);
 void getOSABI(unsigned char value);
-int checkelf(char *ls);
+int is_elf(char *ls);
 void print_magic_bytes(char *ls);
 void print_elf_class(char *ls);
 void print_endianness(char *ls);
