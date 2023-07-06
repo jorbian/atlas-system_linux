@@ -3,7 +3,7 @@
 /**
  * print_entryp32 - Print the elf header entry point
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 void print_entryp32(char *ls)
@@ -18,7 +18,7 @@ void print_entryp32(char *ls)
 /**
  * print_elf_32bit - Print the elf header info
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 void print_elf_32bit(char *ls)

@@ -2,7 +2,7 @@
 
 /**
  * doBigEndian - Generate the output for big endian
- * 
+ *
  * Return: void
 */
 void doBigEndian(void)
@@ -30,7 +30,7 @@ exit(EXIT_SUCCESS);
  * swapBytes - Changes the endianness of a value
  * @pv: The address of the value to change
  * @n: The size of the value
- * 
+ *
  * Return: void
 */
 void swapBytes(void *pv, size_t n)
