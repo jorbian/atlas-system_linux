@@ -1,6 +1,8 @@
 #include "section_headers.h"
 
 static char *flag32(char *retval, Elf32_Xword flags);
+static char *type32(Elf32_Word shtype);
+static char *type32II(Elf32_Word shtype);
 
 /**
  * print_shdr32 - Generate the output of the section headers
@@ -31,7 +33,7 @@ int print_shdr32(char *p)
 		printf("  [%2d] %-17s ", i,
 		sh_strtab_p + shdr[i].sh_name);
 
-		printf("%-16s", sht_str32(shtype));
+		printf("%-16s", type32(shtype));
 		printf("%08x ", shdr[i].sh_addr);
 		printf("%06x ", shdr[i].sh_offset);
 		printf("%06x ", shdr[i].sh_size);
@@ -43,6 +45,77 @@ int print_shdr32(char *p)
 	}
 	print_keyflag_legend32();
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * type32II - Find the string output for a given section header type (more)
+ * @shtype: the program header type from shdr, 32 bits
+ *
+ * Return: The string of the shtype
+*/
+static char *type32II(Elf32_Word shtype)
+{
+	switch (shtype)
+	{
+	case SHT_SUNW_syminfo:
+		return ("VERDEF");
+	case SHT_SUNW_dynsymsort:
+		return ("LOOS+ffffff1");
+	case SHT_SUNW_ldynsym:
+		return ("LOOS+ffffff3");
+	default:
+		printf("0x%x", shtype);
+		return ("\0");
+	}
+	return (NULL);
+}
+
+/**
+ * type32 - Find the string output for a given section header type
+ * @shtype: the program header type from shdr, 32 bits
+ *
+ * Return: The string of the shtype
+*/
+static char *type32(Elf32_Word shtype)
+{
+	switch (shtype)
+	{
+	case SHT_PROGBITS:
+		return ("PROGBITS");
+	case SHT_DYNSYM:
+		return ("DYNSYM");
+	case SHT_NOTE:
+		return ("NOTE");
+	case SHT_GNU_HASH:
+		return ("GNU_HASH");
+	case SHT_STRTAB:
+		return ("STRTAB");
+	case SHT_GNU_versym:
+		return ("VERSYM");
+	case SHT_GNU_verneed:
+		return ("VERNEED");
+	case SHT_RELA:
+		return ("RELA");
+	case SHT_INIT_ARRAY:
+		return ("INIT_ARRAY");
+	case SHT_FINI_ARRAY:
+		return ("FINI_ARRAY");
+	case SHT_DYNAMIC:
+		return ("DYNAMIC");
+	case SHT_NOBITS:
+		return ("NOBITS");
+	case SHT_SYMTAB:
+		return ("SYMTAB");
+	case SHT_NULL:
+		return ("NULL");
+	case SHT_REL:
+		return ("REL");
+	case SHT_HASH:
+		return ("HASH");
+	default:
+		return (type32II(shtype));
+	}
+	return (NULL);
 }
 
 /**
@@ -165,75 +238,4 @@ void dosparcbigendian32(void)
 	printf("  [12] .fini             PROGBITS        00022fa0 012fa0 000030 00");
 	printf("  AX  0   0 32\n");
 	dosparcbigendian32II();
-}
-
-/**
- * sht_str32II - Find the string output for a given section header type (more)
- * @shtype: the program header type from shdr, 32 bits
- *
- * Return: The string of the shtype
-*/
-char *sht_str32II(Elf32_Word shtype)
-{
-	switch (shtype)
-	{
-	case SHT_SUNW_syminfo:
-		return ("VERDEF");
-	case SHT_SUNW_dynsymsort:
-		return ("LOOS+ffffff1");
-	case SHT_SUNW_ldynsym:
-		return ("LOOS+ffffff3");
-	default:
-		printf("0x%x", shtype);
-		return ("\0");
-	}
-	return (NULL);
-}
-
-/**
- * sht_str32 - Find the string output for a given section header type
- * @shtype: the program header type from shdr, 32 bits
- *
- * Return: The string of the shtype
-*/
-char *sht_str32(Elf32_Word shtype)
-{
-	switch (shtype)
-	{
-	case SHT_PROGBITS:
-		return ("PROGBITS");
-	case SHT_DYNSYM:
-		return ("DYNSYM");
-	case SHT_NOTE:
-		return ("NOTE");
-	case SHT_GNU_HASH:
-		return ("GNU_HASH");
-	case SHT_STRTAB:
-		return ("STRTAB");
-	case SHT_GNU_versym:
-		return ("VERSYM");
-	case SHT_GNU_verneed:
-		return ("VERNEED");
-	case SHT_RELA:
-		return ("RELA");
-	case SHT_INIT_ARRAY:
-		return ("INIT_ARRAY");
-	case SHT_FINI_ARRAY:
-		return ("FINI_ARRAY");
-	case SHT_DYNAMIC:
-		return ("DYNAMIC");
-	case SHT_NOBITS:
-		return ("NOBITS");
-	case SHT_SYMTAB:
-		return ("SYMTAB");
-	case SHT_NULL:
-		return ("NULL");
-	case SHT_REL:
-		return ("REL");
-	case SHT_HASH:
-		return ("HASH");
-	default:
-		return (sht_str32II(shtype));
-	}
-	return (NULL);
 }
