@@ -8,7 +8,7 @@
 void doBigEndian(void)
 {
 printf("  Version:                           1 (current)\n");
-printf("  OS/ABI:                            System V\n");
+printf("  OS/ABI:                            UNIX - System V\n");
 printf("  ABI Version:                       0\n");
 printf("  Type:                              EXEC (Executable file)\n");
 printf("  Machine:                           Sparc\n");
