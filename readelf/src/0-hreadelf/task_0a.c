@@ -62,13 +62,13 @@ void getOSABI(unsigned char value)
 	switch (value)
 	{
 		case ELFOSABI_SYSV:
-			printf("System V\n");
+			printf(" System V\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf("Solaris\n");
+			printf(" Solaris\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf("NetBSD\n");
+			printf(" NetBSD\n");
 			break;
 		default:
 		printf("<unknown: %x>\n", value);
