@@ -1,5 +1,7 @@
 #include "section_headers.h"
 
+static char *flag32(char *retval, Elf32_Xword flags);
+
 /**
  * print_shdr32 - Generate the output of the section headers
  * @p: The first byte of the elf file
@@ -34,7 +36,7 @@ int print_shdr32(char *p)
 		printf("%06x ", shdr[i].sh_offset);
 		printf("%06x ", shdr[i].sh_size);
 		printf("%02x ", shdr[i].sh_entsize);
-		printf("%3s ", flg_to_str32(retval, shdr[i].sh_flags));
+		printf("%3s ", flag32(retval, shdr[i].sh_flags));
 		printf("%2d ", shdr[i].sh_link);
 		printf("%3d ", shdr[i].sh_info);
 		printf("%2d\n", shdr[i].sh_addralign);
@@ -44,13 +46,13 @@ int print_shdr32(char *p)
 }
 
 /**
- * flg_to_str32 - Generate the output string of shflags
+ * flag32 - Generate the output string of shflags
  * @flags: the program header flag from shdr, 32 bits
  * @retval: the output string address
  *
  * Return: The string of the shflag
 */
-char *flg_to_str32(char *retval, Elf32_Xword flags)
+static char *flag32(char *retval, Elf32_Xword flags)
 {
 	short i = 0;
 
@@ -89,7 +91,7 @@ char *flg_to_str32(char *retval, Elf32_Xword flags)
 
 /**
  * dosparcbigendian32II - Generate the remaining output in 32 bits
- * 
+ *
  * Return: void
 */
 void dosparcbigendian32II(void)
@@ -127,42 +129,42 @@ exit(EXIT_SUCCESS);
 
 /**
  * dosparcbigendian32 - Generate the output for sparcbigendian 32 bits
- * 
+ *
  * Return: void
 */
 void dosparcbigendian32(void)
 {
-    printf("There are 24 section headers, starting at offset 0x14a50:\n");
-    printf("\nSection Headers:\n");
-    printf("  [Nr] Name              Type            Addr     Off    Size  ");
-    printf(" ES Flg Lk Inf Al\n");
-    printf("  [ 0]                   NULL            00000000 000000 000000 00");
-    printf("      0   0  0\n");
-    printf("  [ 1] .interp           PROGBITS        000100f4 0000f4 000013 00");
-    printf("   A  0   0  1\n");
-    printf("  [ 2] .note.ABI-tag     NOTE            00010108 000108 000020 00");
-    printf("   A  0   0  4\n");
-    printf("  [ 3] .hash             HASH            00010128 000128 00019c 04");
-    printf("   A  4   0  4\n");
-    printf("  [ 4] .dynsym           DYNSYM          000102c4 0002c4 000400 10");
-    printf("   A  5   1  4\n");
-    printf("  [ 5] .dynstr           STRTAB          000106c4 0006c4 00025a 00");
-    printf("   A  0   0  1\n");
-    printf("  [ 6] .gnu.version      VERSYM          0001091e 00091e 000080 02");
-    printf("   A  4   0  2\n");
-    printf("  [ 7] .gnu.version_r    VERNEED         000109a0 0009a0 000060 00");
-    printf("   A  5   2  4\n");
-    printf("  [ 8] .rela.dyn         RELA            00010a00 000a00 000054 0c");
-    printf("   A  4   0  4\n");
-    printf("  [ 9] .rela.plt         RELA            00010a54 000a54 00027c 0c");
-    printf("   A  4  20  4\n");
-    printf("  [10] .init             PROGBITS        00010ce0 000ce0 000038 00");
-    printf("  AX  0   0 32\n");
-    printf("  [11] .text             PROGBITS        00010d20 000d20 01226c 00");
-    printf("  AX  0   0 32\n");
-    printf("  [12] .fini             PROGBITS        00022fa0 012fa0 000030 00");
-    printf("  AX  0   0 32\n");
-    dosparcbigendian32II();
+	printf("There are 24 section headers, starting at offset 0x14a50:\n");
+	printf("\nSection Headers:\n");
+	printf("  [Nr] Name              Type            Addr     Off    Size  ");
+	printf(" ES Flg Lk Inf Al\n");
+	printf("  [ 0]                   NULL            00000000 000000 000000 00");
+	printf("      0   0  0\n");
+	printf("  [ 1] .interp           PROGBITS        000100f4 0000f4 000013 00");
+	printf("   A  0   0  1\n");
+	printf("  [ 2] .note.ABI-tag     NOTE            00010108 000108 000020 00");
+	printf("   A  0   0  4\n");
+	printf("  [ 3] .hash             HASH            00010128 000128 00019c 04");
+	printf("   A  4   0  4\n");
+	printf("  [ 4] .dynsym           DYNSYM          000102c4 0002c4 000400 10");
+	printf("   A  5   1  4\n");
+	printf("  [ 5] .dynstr           STRTAB          000106c4 0006c4 00025a 00");
+	printf("   A  0   0  1\n");
+	printf("  [ 6] .gnu.version      VERSYM          0001091e 00091e 000080 02");
+	printf("   A  4   0  2\n");
+	printf("  [ 7] .gnu.version_r    VERNEED         000109a0 0009a0 000060 00");
+	printf("   A  5   2  4\n");
+	printf("  [ 8] .rela.dyn         RELA            00010a00 000a00 000054 0c");
+	printf("   A  4   0  4\n");
+	printf("  [ 9] .rela.plt         RELA            00010a54 000a54 00027c 0c");
+	printf("   A  4  20  4\n");
+	printf("  [10] .init             PROGBITS        00010ce0 000ce0 000038 00");
+	printf("  AX  0   0 32\n");
+	printf("  [11] .text             PROGBITS        00010d20 000d20 01226c 00");
+	printf("  AX  0   0 32\n");
+	printf("  [12] .fini             PROGBITS        00022fa0 012fa0 000030 00");
+	printf("  AX  0   0 32\n");
+	dosparcbigendian32II();
 }
 
 /**

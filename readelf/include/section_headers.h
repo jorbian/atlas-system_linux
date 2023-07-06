@@ -20,7 +20,7 @@ void dosparcbigendian32(void);
 void dosparcbigendian32II(void);
 
 char *flg_to_str64(char *retval, Elf64_Xword flags);
-char *flg_to_str32(char *retval, Elf32_Xword flags);
+char *flag32(char *retval, Elf32_Xword flags);
 void print_keyflag_legend64(void);
 void print_keyflag_legend32(void);
 int print_shdr64(char *p);
