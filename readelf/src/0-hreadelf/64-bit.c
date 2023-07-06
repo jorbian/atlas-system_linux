@@ -6,7 +6,7 @@ static void machine64(char *ls);
 /**
  * print_elf_64bit - Print the elf header info
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 void print_64bit(char *ls)
@@ -40,7 +40,7 @@ void print_64bit(char *ls)
 /**
  * type64 - Print the elf header type
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 static void type64(char *ls)
@@ -63,7 +63,7 @@ static void type64(char *ls)
 /**
  * machine64 - Print the machine type
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 static void machine64(char *ls)
