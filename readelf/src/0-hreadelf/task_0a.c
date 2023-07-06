@@ -1,17 +1,14 @@
 #include "task0.h"
 
-
 /**
  * doBigEndian - Generate the output for big endian
+ * 
  * Return: void
 */
-
-
 void doBigEndian(void)
 {
-
 printf("  Version:                           1 (current)\n");
-printf("  OS/ABI:                            UNIX - System V\n");
+printf("  OS/ABI:                            System V\n");
 printf("  ABI Version:                       0\n");
 printf("  Type:                              EXEC (Executable file)\n");
 printf("  Machine:                           Sparc\n");
@@ -33,6 +30,7 @@ exit(EXIT_SUCCESS);
  * swapBytes - Changes the endianness of a value
  * @pv: The address of the value to change
  * @n: The size of the value
+ * 
  * Return: void
 */
 void swapBytes(void *pv, size_t n)
@@ -50,27 +48,6 @@ void swapBytes(void *pv, size_t n)
 	}
 }
 
-/* printf("  Data:%*s%s", 30, " ", "Unknown data format\n"); */
-/**
- * lineItemPrint - Prints text according to readelf -W -h entries
- * @label: The text on the left side
- * @value: The explanation of the value
- * Return: void
-*/
-void lineItemPrint(char *label, char *value)
-{
-	printf("  %-35s%s\n", label, value);
-}
-/**
- * labelPrint - Prints label text according to readelf -W -h entries
- * @label: The text on the left side
- * Return: void
-*/
-void labelPrint(char *label)
-{
-	printf("  %-35s", label);
-}
-
 /**
  * getOSABI - Prints OS/ABI text according to readelf -W -h entries
  * @value: The value from the struct to determine what the OS/ABI is
@@ -78,17 +55,20 @@ void labelPrint(char *label)
 */
 void getOSABI(unsigned char value)
 {
-	labelPrint("OS/ABI:");
+	PRINT_LABEL("OS/ABI:");
+
+	printf("Unix - ");
+
 	switch (value)
 	{
 		case ELFOSABI_SYSV:
-			printf("UNIX - System V\n");
+			printf("System V\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf("UNIX - Solaris\n");
+			printf("Solaris\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf("UNIX - NetBSD\n");
+			printf("NetBSD\n");
 			break;
 		default:
 		printf("<unknown: %x>\n", value);

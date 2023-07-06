@@ -19,7 +19,7 @@ void print_header(char *ls)
 	version(ls);
 
 	getOSABI((unsigned char)ls[EI_OSABI]);
-	labelPrint("ABI Version:");
+	PRINT_LABEL("ABI Version:");
 	printf("%u\n", (unsigned char)ls[EI_ABIVERSION]);
 
 	if ((unsigned char)ls[EI_CLASS] == ELFCLASS64)
@@ -92,9 +92,9 @@ static void endianness(char *ls)
 static void version(char *ls)
 {
 	if ((unsigned char)ls[EI_VERSION] == EV_CURRENT)
-		lineItemPrint("Version:", "1 (current)");
+		PRINT_LINE_ITEM("Version:", "1 (current)");
 	else if ((unsigned char)ls[EI_VERSION] == EV_NONE)
-		lineItemPrint("Version:", "Invalid version");
+		PRINT_LINE_ITEM("Version:", "Invalid version");
 	else
-		lineItemPrint("Version:", "Unknown version");
+		PRINT_LINE_ITEM("Version:", "Unknown version");
 }

@@ -1,6 +1,5 @@
 #ifndef TASK_0
 #define TASK_0
-#define SWAP(x) swapBytes(&x, sizeof(x))
 
 #include <string.h>
 #include <sys/mman.h>
@@ -13,10 +12,12 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define SWAP(x) swapBytes(&x, sizeof(x))
+#define PRINT_LABEL(label) (printf("  %-35s", label))
+#define PRINT_LINE_ITEM(l, v) (printf("  %-35s%s\n", l, v))
+
 void doBigEndian(void);
 void swapBytes(void *pv, size_t n);
-void lineItemPrint(char *label, char *value);
-void labelPrint(char *label);
 void getOSABI(unsigned char value);
 void print_type64(char *ls);
 void print_machine64(char *ls);

@@ -8,7 +8,7 @@
 
 void print_type64(char *ls)
 {
-	labelPrint("Type:");
+	PRINT_LABEL("Type:");
 	if (ET_CORE == (unsigned char) ((Elf64_Ehdr *)ls)->e_type)
 		printf("CORE (Core file)\n");
 	else if (ET_EXEC == (unsigned char) ((Elf64_Ehdr *)ls)->e_type)
@@ -31,14 +31,14 @@ void print_type64(char *ls)
 
 void print_machine64(char *ls)
 {
-	labelPrint("Machine:");
+	PRINT_LABEL("Machine:");
 	if (EM_X86_64 == (unsigned char) ((Elf64_Ehdr *)ls)->e_machine)
 		printf("Advanced Micro Devices X86-64\n");
 	else if (EM_SPARC == (unsigned char) ((Elf64_Ehdr *)ls)->e_machine)
 		printf("Sparc\n");
 	else
 		printf("Unknown Type\n");
-	labelPrint("Version:");
+	PRINT_LABEL("Version:");
 	if (EV_CURRENT == (unsigned char) ((Elf64_Ehdr *)ls)->e_version)
 		printf("0x1\n");
 	else
@@ -55,25 +55,25 @@ void print_elf_64bit(char *ls)
 {
 	print_type64(ls);
 	print_machine64(ls);
-	labelPrint("Entry point address:");
+	PRINT_LABEL("Entry point address:");
 	printf("0x%lx\n", ((Elf64_Ehdr *)ls)->e_entry);
-	labelPrint("Start of program headers:");
+	PRINT_LABEL("Start of program headers:");
 	printf("%lu (bytes into file)\n", ((Elf64_Ehdr *)ls)->e_phoff);
-	labelPrint("Start of section headers:");
+	PRINT_LABEL("Start of section headers:");
 	printf("%lu (bytes into file)\n", ((Elf64_Ehdr *)ls)->e_shoff);
-	labelPrint("Flags:");
+	PRINT_LABEL("Flags:");
 	printf("0x");
 	printf("%u\n", ((Elf64_Ehdr *)ls)->e_flags);
-	labelPrint("Size of this header:");
+	PRINT_LABEL("Size of this header:");
 	printf("%u (bytes)\n", ((Elf64_Ehdr *)ls)->e_ehsize);
-	labelPrint("Size of program headers:");
+	PRINT_LABEL("Size of program headers:");
 	printf("%u (bytes)\n", ((Elf64_Ehdr *)ls)->e_phentsize);
-	labelPrint("Number of program headers:");
+	PRINT_LABEL("Number of program headers:");
 	printf("%u\n", ((Elf64_Ehdr *)ls)->e_phnum);
-	labelPrint("Size of section headers:");
+	PRINT_LABEL("Size of section headers:");
 	printf("%u (bytes)\n", ((Elf64_Ehdr *)ls)->e_shentsize);
-	labelPrint("Number of section headers:");
+	PRINT_LABEL("Number of section headers:");
 	printf("%u\n", ((Elf64_Ehdr *)ls)->e_shnum);
-	labelPrint("Section header string table index:");
+	PRINT_LABEL("Section header string table index:");
 	printf("%u\n", ((Elf64_Ehdr *)ls)->e_shstrndx);
 }

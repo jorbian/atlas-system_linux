@@ -3,14 +3,14 @@
 /**
  * print_entryp32 - Print the elf header entry point
  * @ls: The first byte of the file
+ * 
  * Return: void
 */
-
 void print_entryp32(char *ls)
 {
 	Elf32_Addr thiself;
 
-	labelPrint("Entry point address:");
+	PRINT_LABEL("Entry point address:");
 	printf("0x%x\n", ((Elf32_Ehdr *)ls)->e_entry);
 	thiself = ((Elf32_Ehdr *)ls)->e_entry;
 	SWAP(thiself);
@@ -18,6 +18,7 @@ void print_entryp32(char *ls)
 /**
  * print_elf_32bit - Print the elf header info
  * @ls: The first byte of the file
+ * 
  * Return: void
 */
 void print_elf_32bit(char *ls)
@@ -25,24 +26,24 @@ void print_elf_32bit(char *ls)
 	print_type32(ls);
 	print_machine32(ls);
 	print_entryp32(ls);
-	labelPrint("Start of program headers:");
+	PRINT_LABEL("Start of program headers:");
 	printf("%u (bytes into file)\n", ((Elf32_Ehdr *)ls)->e_phoff);
-	labelPrint("Start of section headers:");
+	PRINT_LABEL("Start of section headers:");
 	printf("%u (bytes into file)\n", ((Elf32_Ehdr *)ls)->e_shoff);
-	labelPrint("Flags:");
+	PRINT_LABEL("Flags:");
 	printf("0x");
 	printf("%u\n", ((Elf32_Ehdr *)ls)->e_flags);
-	labelPrint("Size of this header:");
+	PRINT_LABEL("Size of this header:");
 	printf("%u (bytes)\n", ((Elf32_Ehdr *)ls)->e_ehsize);
-	labelPrint("Size of program headers:");
+	PRINT_LABEL("Size of program headers:");
 	printf("%u (bytes)\n", ((Elf32_Ehdr *)ls)->e_phentsize);
-	labelPrint("Number of program headers:");
+	PRINT_LABEL("Number of program headers:");
 	printf("%u\n", ((Elf32_Ehdr *)ls)->e_phnum);
-	labelPrint("Size of section headers:");
+	PRINT_LABEL("Size of section headers:");
 	printf("%u (bytes)\n", ((Elf32_Ehdr *)ls)->e_shentsize);
-	labelPrint("Number of section headers:");
+	PRINT_LABEL("Number of section headers:");
 	printf("%u\n", ((Elf32_Ehdr *)ls)->e_shnum);
-	labelPrint("Section header string table index:");
+	PRINT_LABEL("Section header string table index:");
 	printf("%u\n", ((Elf32_Ehdr *)ls)->e_shstrndx);
 }
 
@@ -54,7 +55,7 @@ void print_elf_32bit(char *ls)
 */
 void print_type32(char *ls)
 {
-	labelPrint("Type:");
+	PRINT_LABEL("Type:");
 	if (ET_CORE == (unsigned char) ((Elf32_Ehdr *)ls)->e_type)
 		printf("CORE (Core file)\n");
 	else if (ET_EXEC == (unsigned char) ((Elf32_Ehdr *)ls)->e_type)
@@ -77,7 +78,7 @@ void print_type32(char *ls)
 */
 void print_machine32(char *ls)
 {
-	labelPrint("Machine:");
+	PRINT_LABEL("Machine:");
 	if (EM_386 == (unsigned char) ((Elf32_Ehdr *)ls)->e_machine)
 		printf("Intel 80386\n");
 	else if (EM_SPARC == (unsigned char) ((Elf32_Ehdr *)ls)->e_machine)
@@ -87,7 +88,7 @@ void print_machine32(char *ls)
 	else
 		printf("Unknown Type: %x\n",
 		(unsigned char) ((Elf32_Ehdr *)ls)->e_machine);
-	labelPrint("Version:");
+	PRINT_LABEL("Version:");
 	if (EV_CURRENT == (unsigned char) ((Elf32_Ehdr *)ls)->e_version)
 		printf("0x1\n");
 	else
