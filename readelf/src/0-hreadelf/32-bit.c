@@ -1,4 +1,4 @@
-#include "task0.h"
+#include "elf_headers.h"
 
 static void type32(char *ls);
 static void machine32(char *ls);

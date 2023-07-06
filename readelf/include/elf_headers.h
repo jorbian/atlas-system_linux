@@ -1,5 +1,5 @@
-#ifndef TASK_0
-#define TASK_0
+#ifndef ELF_HEADERS_H
+#define ELF_HEADERS_H
 
 #include <string.h>
 #include <sys/mman.h>

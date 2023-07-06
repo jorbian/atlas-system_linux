@@ -1,4 +1,4 @@
-#include "task0.h"
+#include "elf_headers.h"
 
 static void magic_bytes(char *ls);
 static void class(char *ls);

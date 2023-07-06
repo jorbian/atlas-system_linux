@@ -1,4 +1,4 @@
-#include "task0.h"
+#include "elf_headers.h"
 
 static int is_elf(char *ls);
 

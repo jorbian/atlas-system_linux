@@ -24,5 +24,6 @@ char *flg_to_str32(char *retval, Elf32_Xword flags);
 void print_keyflag_legend64(void);
 void print_keyflag_legend32(void);
 int print_shdr64(char *p);
+int print_shdr32(char *p);
 
 #endif /* TASK_1 */
