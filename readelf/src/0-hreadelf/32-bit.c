@@ -49,7 +49,7 @@ void print_elf_32bit(char *ls)
 /**
  * print_type32 - Print the elf type
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 void print_type32(char *ls)
@@ -72,7 +72,7 @@ void print_type32(char *ls)
 /**
  * print_machine32- Print the elf machine info
  * @ls: The first byte of the file
- * 
+ *
  * Return: void
 */
 void print_machine32(char *ls)

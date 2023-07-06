@@ -1,12 +1,12 @@
 #include "task0.h"
 
-static void print_elf_header(char *ls);
+static int is_elf(char *ls);
 
 /**
  * main - Prints text according to readelf -W -h entries
  * @argc: Number of arguments passed
  * @argv: The arguments passed
- * 
+ *
  * Return: EXIT_SUCCESS if success, something else if fail
 */
 int main(int argc, char **argv)
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	}
 	if (is_elf(ls) == 1)
 		goto cleanup;
-	print_elf_header(ls);
+	print_header(ls);
 	/* close file descriptors and free memory before the program exits */
 cleanup:
 	if (fd != -1)
@@ -48,22 +48,19 @@ cleanup:
 }
 
 /**
- * print_elf_header - Print the elf header
+ * is_elf - Check if the file is an ELF file
  * @ls: The first byte of the file
- * 
  * Return: void
 */
-static void print_elf_header(char *ls)
+static int is_elf(char *ls)
 {
-	print_magic_bytes(ls);
-	print_elf_class(ls);
-	print_endianness(ls);
-	getOSABI((unsigned char)ls[EI_OSABI]);
-	labelPrint("ABI Version:");
-	printf("%u\n", (unsigned char)ls[EI_ABIVERSION]);
+	if (
+	(unsigned char)ls[EI_MAG0] == 0x7f &&
+	(unsigned char)ls[EI_MAG1] == 'E' &&
+	(unsigned char)ls[EI_MAG2] == 'L' &&
+	(unsigned char)ls[EI_MAG3] == 'F'
+	)
+		return (EXIT_SUCCESS);
 
-	if ((unsigned char)ls[EI_CLASS] == ELFCLASS64)
-		print_elf_64bit(ls);
-	else if ((unsigned char)ls[EI_CLASS] == ELFCLASS32)
-		print_elf_32bit(ls);
+	return (EXIT_FAILURE);
 }
