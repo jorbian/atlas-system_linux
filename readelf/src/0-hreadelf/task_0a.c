@@ -55,20 +55,17 @@ void swapBytes(void *pv, size_t n)
 */
 void getOSABI(unsigned char value)
 {
-	PRINT_LABEL("OS/ABI:");
-
-	printf("UNIX - ");
-
+	labelPrint("OS/ABI:");
 	switch (value)
 	{
 		case ELFOSABI_SYSV:
-			printf("System V\n");
+			printf("UNIX - System V\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf("Solaris\n");
+			printf("UNIX - Solaris\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf("NetBSD\n");
+			printf("UNIX - NetBSD\n");
 			break;
 		default:
 		printf("<unknown: %x>\n", value);
