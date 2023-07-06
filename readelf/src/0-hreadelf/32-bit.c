@@ -1,31 +1,20 @@
 #include "task0.h"
 
-/**
- * print_entryp32 - Print the elf header entry point
- * @ls: The first byte of the file
- *
- * Return: void
-*/
-void print_entryp32(char *ls)
-{
-	Elf32_Addr thiself;
+static void type32(char *ls);
+static void machine32(char *ls);
+static void entryp32(char *ls);
 
-	PRINT_LABEL("Entry point address:");
-	printf("0x%x\n", ((Elf32_Ehdr *)ls)->e_entry);
-	thiself = ((Elf32_Ehdr *)ls)->e_entry;
-	SWAP(thiself);
-}
 /**
  * print_elf_32bit - Print the elf header info
  * @ls: The first byte of the file
  *
  * Return: void
 */
-void print_elf_32bit(char *ls)
+void print_32bit(char *ls)
 {
-	print_type32(ls);
-	print_machine32(ls);
-	print_entryp32(ls);
+	type32(ls);
+	machine32(ls);
+	entryp32(ls);
 	PRINT_LABEL("Start of program headers:");
 	printf("%u (bytes into file)\n", ((Elf32_Ehdr *)ls)->e_phoff);
 	PRINT_LABEL("Start of section headers:");
@@ -48,12 +37,12 @@ void print_elf_32bit(char *ls)
 }
 
 /**
- * print_type32 - Print the elf type
+ * type32 - Print the elf type
  * @ls: The first byte of the file
  *
  * Return: void
 */
-void print_type32(char *ls)
+static void type32(char *ls)
 {
 	PRINT_LABEL("Type:");
 	if (ET_CORE == (unsigned char) ((Elf32_Ehdr *)ls)->e_type)
@@ -71,12 +60,12 @@ void print_type32(char *ls)
 }
 
 /**
- * print_machine32- Print the elf machine info
+ * machine32- Print the elf machine info
  * @ls: The first byte of the file
  *
  * Return: void
 */
-void print_machine32(char *ls)
+static void machine32(char *ls)
 {
 	PRINT_LABEL("Machine:");
 	if (EM_386 == (unsigned char) ((Elf32_Ehdr *)ls)->e_machine)
@@ -94,3 +83,20 @@ void print_machine32(char *ls)
 	else
 		printf("0x0\n");
 }
+
+/**
+ * entryp32 - Print the elf header entry point
+ * @ls: The first byte of the file
+ *
+ * Return: void
+*/
+static void entryp32(char *ls)
+{
+	Elf32_Addr thiself;
+
+	PRINT_LABEL("Entry point address:");
+	printf("0x%x\n", ((Elf32_Ehdr *)ls)->e_entry);
+	thiself = ((Elf32_Ehdr *)ls)->e_entry;
+	SWAP(thiself);
+}
+

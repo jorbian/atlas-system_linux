@@ -19,12 +19,8 @@
 void doBigEndian(void);
 void swapBytes(void *pv, size_t n);
 void getOSABI(unsigned char value);
-void print_type64(char *ls);
-void print_machine64(char *ls);
-void print_elf_64bit(char *ls);
-void print_elf_32bit(char *ls);
-void print_type32(char *ls);
-void print_machine32(char *ls);
+void print_64bit(char *ls);
+void print_32bit(char *ls);
 void print_header(char *ls);
 
 #endif /* TASK_0 */
