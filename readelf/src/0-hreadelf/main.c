@@ -1,9 +1,12 @@
 #include "task0.h"
 
+static void print_elf_header(char *ls);
+
 /**
  * main - Prints text according to readelf -W -h entries
  * @argc: Number of arguments passed
  * @argv: The arguments passed
+ * 
  * Return: EXIT_SUCCESS if success, something else if fail
 */
 int main(int argc, char **argv)
@@ -47,10 +50,10 @@ cleanup:
 /**
  * print_elf_header - Print the elf header
  * @ls: The first byte of the file
+ * 
  * Return: void
 */
-
-void print_elf_header(char *ls)
+static void print_elf_header(char *ls)
 {
 	print_magic_bytes(ls);
 	print_elf_class(ls);
