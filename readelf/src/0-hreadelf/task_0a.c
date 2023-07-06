@@ -57,20 +57,18 @@ void getOSABI(unsigned char value)
 {
 	PRINT_LABEL("OS/ABI:");
 
-	printf("Unix -");
-
 	switch (value)
 	{
 		case ELFOSABI_SYSV:
-			printf(" System V\n");
+			printf("Unix - System V\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf(" Solaris\n");
+			printf("Unix - Solaris\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf(" NetBSD\n");
+			printf("Unix - NetBSD\n");
 			break;
 		default:
-		printf("<unknown: %x>\n", value);
+			printf("<unknown: %x>\n", value);
 	}
 }
