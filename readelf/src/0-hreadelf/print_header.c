@@ -23,9 +23,9 @@ void print_header(char *ls)
 	printf("%u\n", (unsigned char)ls[EI_ABIVERSION]);
 
 	if ((unsigned char)ls[EI_CLASS] == ELFCLASS64)
-		print_elf_64bit(ls);
+		print_64bit(ls);
 	else if ((unsigned char)ls[EI_CLASS] == ELFCLASS32)
-		print_elf_32bit(ls);
+		print_32bit(ls);
 }
 
 /**
