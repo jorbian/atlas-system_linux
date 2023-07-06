@@ -1,5 +1,5 @@
-#ifndef TASK_2
-#define TASK_2
+#ifndef PROGRAM_HEADERS_H
+#define PROGRAM_HEADERS_H
 
 #include <string.h>
 #include <sys/mman.h>
@@ -12,17 +12,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
-char *etype_to_str64(Elf64_Half etype);
-char *etype_to_str32(Elf32_Half etype);
-char *phtype_to_str64(Elf64_Word phtype);
-char *phtype_to_str32(Elf32_Word phtype);
-char *phflag_to_str64(Elf64_Word phflag, char *phtype);
-
-int print_phdr32(char *p);
-int print_phdr64(char *p);
-void print_segments32(char *p);
-void print_segments64(char *p);
-char *phflag_to_str32(Elf32_Word phflag, char *phtype);
+int program_headr32(char *p);
+int program_headrs64(char *p);
 
 
 #endif /* TASK_2 */

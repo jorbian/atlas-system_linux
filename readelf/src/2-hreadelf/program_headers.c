@@ -67,11 +67,11 @@ int main(int argc, char *argv[])
 	p = mmap(0, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	if ((unsigned char)p[EI_CLASS] == ELFCLASS64)
-		print_phdr64(p);
+		program_headrs64(p);
 	else if (strncmp(argv[1], "sparcbigendian32", 16) == 0)
 		dosparcbigendian32ph();
 	else if ((unsigned char)p[EI_CLASS] == ELFCLASS32)
-		print_phdr32(p);
+		program_headr32(p);
 	else
 		printf("Class:%*s", 35, "Invalid class\n");
 	return (EXIT_SUCCESS);
