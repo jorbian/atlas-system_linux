@@ -71,6 +71,6 @@ void getOSABI(unsigned char value)
 			printf("NetBSD\n");
 			break;
 		default:
-		printf("<unknown: %x>\n", value);
+			printf("<unknown: %x>\n", value);
 	}
 }
