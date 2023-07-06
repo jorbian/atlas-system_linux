@@ -11,8 +11,8 @@ static void machine64(char *ls);
 */
 void print_64bit(char *ls)
 {
-	print_type64(ls);
-	print_machine64(ls);
+	type64(ls);
+	machine64(ls);
 	PRINT_LABEL("Entry point address:");
 	printf("0x%lx\n", ((Elf64_Ehdr *)ls)->e_entry);
 	PRINT_LABEL("Start of program headers:");
