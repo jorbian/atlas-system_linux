@@ -66,5 +66,4 @@ static void print_elf_header(char *ls)
 		print_elf_64bit(ls);
 	else if ((unsigned char)ls[EI_CLASS] == ELFCLASS32)
 		print_elf_32bit(ls);
-
 }
