@@ -1,5 +1,5 @@
-#ifndef TASK_1
-#define TASK_1
+#ifndef SECTION_HEADERS_H
+#define SECTION_HEADERS_H
 
 #include <string.h>
 #include <sys/mman.h>

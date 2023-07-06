@@ -1,10 +1,10 @@
-#include "task2.h"
+#include "program_headers.h"
 
 /**
  * dosparcbigendian32ph - Generate the output for bigsparcendian32
+ *
  * Return: void
 */
-
 void dosparcbigendian32ph(void)
 {
 	printf("\nElf file type is EXEC (Executable file)\n");
@@ -44,9 +44,9 @@ void dosparcbigendian32ph(void)
  * main - The entry point of the program
  * @argc: The number of arguments
  * @argv: The arguments
+ *
  * Return: 0 if success, 1 if no headers
 */
-
 int main(int argc, char *argv[])
 {
 	struct stat st;
