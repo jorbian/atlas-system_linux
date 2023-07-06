@@ -57,7 +57,7 @@ void getOSABI(unsigned char value)
 {
 	PRINT_LABEL("OS/ABI:");
 
-	printf("Unix - ");
+	printf("Unix -");
 
 	switch (value)
 	{
