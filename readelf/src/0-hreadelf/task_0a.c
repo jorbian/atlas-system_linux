@@ -55,7 +55,7 @@ void swapBytes(void *pv, size_t n)
 */
 void getOSABI(unsigned char value)
 {
-	labelPrint("OS/ABI:");
+	PRINT_LABEL("OS/ABI:");
 	switch (value)
 	{
 		case ELFOSABI_SYSV:
