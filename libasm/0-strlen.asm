@@ -1,21 +1,22 @@
-section .txt
-	[GLOBAL asm_strlen:]
+BITS 64
+
+global	asm_strlen
+	; int strlen(const char *string);
 
 asm_strlen:
-	push ebp
-	move epb, esp
+  push  rcx
+  push  rdi
+  xor   rcx, rcx
 
-	move edx, [edb + 8]	; the string
-	xor eax, eax
+_strlen_next:
+  cmp   [rdi], byte 0  ; null byte yet?
+  jz    _strlen_null   ; yes, get out
+  inc   rcx            ; char is ok, count it
+  inc   rdi            ; move to next char
+  jmp   _strlen_next   ; process again
 
-then:
-	inc eax
-
-if:
-	mov cl, [edx + eax]
-	cmp cl, 0x0
-	jne then
-
-end:
-	pop edp
-	ret
+_strlen_null:
+  mov   rax, rcx       ; rcx = the length (put in rax)
+  pop   rdi
+  pop   rcx            ; restore rcx
+  ret                  ; get out
