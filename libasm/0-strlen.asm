@@ -1,22 +1,21 @@
-BITS 64
-
-global	asm_strlen
-	; int strlen(const char *string);
+section .text
+    global asm_strlen
 
 asm_strlen:
-  push  rcx
-  push  rdi
-  xor   rcx, rcx
+    push rbp               ; Save base pointer
+    mov rbp, rsp           ; Set up the new base pointer
 
-_strlen_next:
-  cmp   [rdi], byte 0  ; null byte yet?
-  jz    _strlen_null   ; yes, get out
-  inc   rcx            ; char is ok, count it
-  inc   rdi            ; move to next char
-  jmp   _strlen_next   ; process again
+    xor rax, rax           ; Initialize length
+    mov rdi, rdi           ; Load address of the input string
 
-_strlen_null:
-  mov   rax, rcx       ; rcx = the length (put in rax)
-  pop   rdi
-  pop   rcx            ; restore rcx
-  ret                  ; get out
+loop_start:
+    cmp byte [rdi], 0      ; Check for null termination
+    je loop_end            ; Exit the loop
+
+    inc rax                ; Increment the length
+    inc rdi                ; Move to the next character
+    jmp loop_start         ; Continue looping
+
+loop_end:
+    pop rbp                ; Restore the base pointer
+    ret                    ; Return to the calling code
