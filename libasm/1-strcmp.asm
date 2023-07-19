@@ -7,39 +7,39 @@ asm_strcmp:
 
 _while:
     cmp [rdi], byte 0       ; Have we reached end of first string?
-    jz first_ends
-    cmp [rsi], byte 0
-    jz second_ends
+    jz _first_end           ; See if there's a match
+    cmp [rsi], byte 0       ; Have we reached end of second string?
+    jz _second_end          ; we're pretty much done then...
     mov rcx, [rsi]
     cmp [rdi], rcx
-    jl less
-    jg greater
-    inc rdi
-    inc rsi
-    jmp _while
+    jl _less
+    jg _greater
+    inc rdi                 ; move to the next character of first string
+    inc rsi                 ; move to the next character of second string
+    jmp _while              ; loop back up to the top
 
-first_ends:
-    cmp [rsi], byte 0
-    jz return_matched
-    jmp less
+_first_end:
+    cmp [rsi], byte 0       ;
+    jz _matched             ; return the match
+    jmp _less
 
-second_ends:
-    jmp greater
+_second_end:
+    jmp _greater
 
-return_matched:
-    xor rax, rax
-    jmp exit
+_matched:
+    xor rax, rax            ; clear the rax register
+    jmp _end
 
-greater:
-    xor rax, rax
+_greater:
+    xor rax, rax            
     inc rax
-    jmp exit
+    jmp _end
 
-less:
+_less:
     xor rax, rax
     dec rax
-    jmp exit
+    jmp _end
 
-exit:
+_end:
     pop rcx
     ret
