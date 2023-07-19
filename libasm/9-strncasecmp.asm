@@ -7,59 +7,55 @@ asm_strncasecmp:
 	mov rbp, rsp
 
 	mov r15, rdx
-
-_while:
+while:
 	cmp r15, 0
-	jz _after
-	mov rax, rdi 				; rax = s1
-	mov rdx, rsi				; rdx = s2
-	movzx eax, BYTE [rax]		; load lower bits of rax into eax
-	movzx edx, BYTE [rdx]		; load lower bits of rdx into edx
+	jz after
+	mov rax, rdi
+	mov rdx, rsi
+	movzx eax, BYTE [rax]
+	movzx edx, BYTE [rdx]
 	cmp al, 0x0
-	jne _not_both_null
+	jne not_both_null
 	cmp dl, 0x0
-	je _after
-
-_not_both_null:
+	je after
+not_both_null:
 	cmp al, 65
-	jl _case_a_done
+	jl case_a_done
 	cmp al, 90
-	jg _case_a_done
-	add ax, 32					; convert it to uppercase
-
-_case_a_done:
+	jg case_a_done
+	add ax, 32
+case_a_done:
 	cmp dl, 65
-	jl _case_done
+	jl case_done
 	cmp dl, 90
-	jg _case_done
-	add dx, 32					; convert it to uppercase
+	jg case_done
+	add dx, 32
 
-_case_done:
+case_done:
 	cmp al, dl
-	jne _after
+	jne after
 	inc rdi
 	inc rsi
 	dec r15
-	jmp _while
+	jmp while
 
-_after:
+after:
 	cmp al, dl
-	je _equal
-	jl _less
+	je equal
+	jl less
 	sub al, dl
-	jmp _end
-
-_equal:
+	jmp end
+equal:
 	mov rax, 0x0
-	jmp _end
-
-_less:
+	jmp end
+less:
 	sub al, dl
 	neg al
 	imul eax, -1
+	jmp end
 
-_end:
-	pop rdx					; pop the value of rdx from stack
-	mov rbp, rsp			; restore the original base pointer
-	pop rbp					; pop value of base pointer from stack
-	ret						; return to the original caller
+end:
+
+	mov rbp, rsp
+	pop rbp
+	ret
