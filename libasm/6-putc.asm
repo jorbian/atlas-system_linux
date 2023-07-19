@@ -5,7 +5,7 @@ BITS 64
 asm_putc:
 	push rbp			; preserve base pointer
 	mov rbp, rsp		; move stack pointer to base
-	
+
 	push rdi			; push contents of rdi to task
 	mov rax, 1			; move the value of 1 into rax
 	mov rdi, 1			; move the value of 1 into rdi
@@ -16,4 +16,3 @@ asm_putc:
 	mov rsp, rbp		; move base pointer back to stack
 	pop rbp				; pop the old base pointer
 	ret					; return to called
-
