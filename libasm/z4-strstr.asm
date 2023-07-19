@@ -6,22 +6,23 @@ asm_strstr:
 	push rbp,
 	mov rbp, rsp
 
-	while:
+_while:
 	xor rax, rax
 	push rdi
 	push rsi
 	jmp _strstr
-	_strstr_return:
+
+_strstr_return:
 	pop rsi
 	pop rdi
 	test rax, rax
 	jnz end
 	inc rdi
 	cmp BYTE [rdi], 0
-	jz end
+	jz _end
 	jmp while
 
-	end:
+_end:
 	mov rsp, rbp
 	pop rbp
 	ret
