@@ -3,7 +3,7 @@ BITS 64
 	section .text
 
 asm_strcasecmp:
-	push rbp					; push value of base pointer onto stack 
+	push rbp					; push value of base pointer onto stack
 	mov rbp, rsp				; copy stack pointer into base pointer
 	push rdx					; reserve space on stack for rdx register
 
@@ -19,7 +19,7 @@ _while:
 
 _not_both_null:
 	cmp al, 65					; is first letter we're dealing with uppercase?
-	jl _case_a_done				
+	jl _case_a_done
 	cmp al, 90
 	jg _case_a_done
 	add ax, 32
