@@ -29,12 +29,12 @@ _not_both_null:
 
 _case_a_done:
 	cmp dl, 65
-	jl case_done
+	jl _case_done
 	cmp dl, 90
-	jg case_done
+	jg _case_done
 	add dx, 32					; convert it to uppercase
 
-case_done:
+_case_done:
 	cmp al, dl
 	jne _after
 	inc rdi
