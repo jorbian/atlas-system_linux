@@ -41,7 +41,7 @@ _ss_while:
 	cmp dl, cl				; Compare the bytes in edx and ecx
 
 _after:
-	jnz _strstr_not_found	; it wasn't found if the value was 0
+	jnz _ss_not_found		; it wasn't found if the value was 0
 	inc rdi					; Move to next character in rdi
 	inc rsi					; Move to next character in rsi
 	jmp _ss_while			; keep searching search
