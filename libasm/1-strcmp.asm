@@ -1,30 +1,45 @@
 BITS 64
     global asm_strcmp
-	section .text
+    section .text
 
 asm_strcmp:
-    push rbp
-    mov rbp, rsp
-    push rdi
-    push rsi
+    push rcx
 
-    xor rax, rax    ; Return value: 0 if equal, < 0 if s1 < s2, > 0 if s1 > s2
+_while:
+    cmp [rdi], byte 0       ; Have we reached end of first string?
+    jz first_ends
+    cmp [rsi], byte 0
+    jz second_ends
+    mov rcx, [rsi]
+    cmp [rdi], rcx
+    jl less
+    jg greater
+    inc rdi
+    inc rsi
+    jmp _while
 
-.loop:
-    mov al, byte [rdi]   ; Load a byte from the first string
-    mov dl, byte [rsi]   ; Load a byte from the second string
-    cmp al, dl           ; Compare the bytes
-    jne .exit            ; If not equal, exit the loop
+first_ends:
+    cmp [rsi], byte 0
+    jz return_matched
+    jmp less
 
-    cmp al, 0            ; Check if the null terminator is reached
-    je .exit
+second_ends:
+    jmp greater
 
-    inc rdi              ; Move to the next character in the first string
-    inc rsi              ; Move to the next character in the second string
-    jmp .loop            ; Repeat the loop
+return_matched:
+    xor rax, rax
+    jmp exit
 
-.exit:
-    pop rsi
-    pop rdi
-    pop rbp
+greater:
+    xor rax, rax
+    inc rax
+    jmp exit
+
+less:
+    xor rax, rax
+    dec rax
+    jmp exit
+
+exit:
+    pop rcx
     ret
