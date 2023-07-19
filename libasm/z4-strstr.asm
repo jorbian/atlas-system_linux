@@ -19,10 +19,10 @@ _strstr_return:
 	jnz end
 	inc rdi
 	cmp BYTE [rdi], 0
-	jz _end
+	jz end
 	jmp while
 
-_end:
+	end:
 	mov rsp, rbp
 	pop rbp
 	ret
