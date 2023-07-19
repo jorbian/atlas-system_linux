@@ -15,30 +15,30 @@ _while:
 	cmp al, 0x0					; is the first byte we're looking at null?
 	jne _not_both_null			; if it's not, then we can go on like normal --
 	cmp dl, 0x0					; is the second byte we're looking at null?
-	je _L2						; if it is then we're mostly sort of done then.
+	je _after					; if it is then we're mostly sort of done then.
 
 _not_both_null:
 	cmp al, 65					; is first letter we're dealing with uppercase?
-	jl _case_a_done
+	jl _case_a_done				;
 	cmp al, 90
 	jg _case_a_done
-	add ax, 32
+	add ax, 32					; convert it to uppercase
 
 _case_a_done:
 	cmp dl, 65
 	jl _L1
 	cmp dl, 90
 	jg _L1
-	add dx, 32
+	add dx, 32					; convert it to uppercase
 
 _L1:
 	cmp al, dl
-	jne _L2
+	jne _after
 	inc rdi
 	inc rsi
 	jmp _while
 
-_L2:
+_after:
 	cmp al, dl
 	je _isIS
 	jl _less_then
