@@ -3,59 +3,61 @@ BITS 64
 	section .text
 
 asm_strncasecmp:
-	push rbp
-	mov rbp, rsp
-
+	push rbp					; push value of base pointer onto stack
+	mov rbp, rsp				; copy stack pointer into base pointer
 	mov r15, rdx
-while:
+
+_while:
 	cmp r15, 0
-	jz after
-	mov rax, rdi
-	mov rdx, rsi
-	movzx eax, BYTE [rax]
-	movzx edx, BYTE [rdx]
-	cmp al, 0x0
-	jne not_both_null
-	cmp dl, 0x0
-	je after
-not_both_null:
+	jz _after
+	mov rax, rdi 				; rax = s1
+	mov rdx, rsi				; rdx = s2
+	movzx eax, BYTE [rax]		; load lower bits of rax into eax
+	movzx edx, BYTE [rdx]		; load lower bits of rdx into edx
+	cmp al, 0x0					; is the first byte we're looking at null?
+	jne _not_both_null			; if it's not, then we can go on like normal --
+	cmp dl, 0x0					; is the second byte we're looking at null?
+	je _after					; if it is then we're mostly sort of done then.
+
+_not_both_null:
 	cmp al, 65
-	jl case_a_done
+	jl _case_a_done
 	cmp al, 90
-	jg case_a_done
+	jg _case_a_done
 	add ax, 32
-case_a_done:
+
+_case_a_done:
 	cmp dl, 65
-	jl case_done
+	jl _case_done
 	cmp dl, 90
-	jg case_done
+	jg _case_done
 	add dx, 32
 
-case_done:
+_case_done:
 	cmp al, dl
-	jne after
+	jne _after
 	inc rdi
 	inc rsi
 	dec r15
-	jmp while
+	jmp _while
 
-after:
+_after:
 	cmp al, dl
-	je equal
-	jl less
+	je _equal
+	jl _less
 	sub al, dl
-	jmp end
-equal:
+	jmp _end
+
+_equal:
 	mov rax, 0x0
-	jmp end
-less:
+	jmp _end
+
+_less:
 	sub al, dl
 	neg al
 	imul eax, -1
-	jmp end
 
-end:
-
+_end:
 	mov rbp, rsp
 	pop rbp
 	ret
