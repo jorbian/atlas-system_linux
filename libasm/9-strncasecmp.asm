@@ -20,44 +20,44 @@ _while:
 	je _after					; if it is then we're mostly sort of done then.
 
 _not_both_null:
-	cmp al, 65
-	jl _case_a_done
-	cmp al, 90
-	jg _case_a_done
-	add ax, 32
+	cmp al, 65					;
+	jl _case_a_done				;
+	cmp al, 90					;
+	jg _case_a_done				;
+	add ax, 32					;
 
 _case_a_done:
-	cmp dl, 65
-	jl _case_done
-	cmp dl, 90
-	jg _case_done
-	add dx, 32
+	cmp dl, 65					;
+	jl _case_done				;
+	cmp dl, 90					;
+	jg _case_done				;
+	add dx, 32					;
 
 _case_done:
-	cmp al, dl
-	jne _after
-	inc rdi
-	inc rsi
-	dec r15
-	jmp _while
+	cmp al, dl					;
+	jne _after					;
+	inc rdi						;
+	inc rsi						;
+	dec r15						;
+	jmp _while					;
 
 _after:
-	cmp al, dl
-	je _equal
-	jl _less
-	sub al, dl
-	jmp _end
+	cmp al, dl					;
+	je _equal					;
+	jl _less					;
+	sub al, dl					;
+	jmp _end					;
 
 _equal:
-	mov rax, 0x0
-	jmp _end
+	mov rax, 0x0				;
+	jmp _end					;
 
 _less:
-	sub al, dl
-	neg al
-	imul eax, -1
+	sub al, dl					;
+	neg al						;
+	imul eax, -1				;
 
 _end:
-	mov rbp, rsp
-	pop rbp
-	ret
+	mov rbp, rsp				; restore the original base pointer
+	pop rbp						; pop value of base pointer from stack
+	ret							; return to the original caller
