@@ -31,7 +31,7 @@ _matched:
     jmp _end
 
 _greater:
-    xor rax, rax            
+    xor rax, rax
     inc rax
     jmp _end
 
