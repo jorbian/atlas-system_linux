@@ -5,7 +5,7 @@ BITS 64
 asm_strchr:
 	push rbp			; preserve original base pointer
 	mov rbp, rsp		; set base pointer to stack pointer
-	xor rax, rax		; clear the return value
+	xor rax, rax		; clear return value
 
 _loop:
 	mov al, BYTE [rdi]	; get current character
@@ -23,4 +23,3 @@ _end:
 	mov rsp, rbp		; restore stack pointer
 	pop rbp				; restore base pointer
 	ret					; go back to the caller
-
