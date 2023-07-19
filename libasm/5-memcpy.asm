@@ -10,7 +10,7 @@ asm_memcpy:
 
 _while:
 	test rdx, rdx		; is rdx equal to zero?
-	jz end				; if it is subroutine is done
+	jz _end				; if it is subroutine is done
 	dec rdx				; move down the patch of memory
 	mov al, BYTE [rsi]	; pick up next byte
 	mov BYTE [rdi], al	; shift it over to the rdi register
