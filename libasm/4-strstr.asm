@@ -3,7 +3,7 @@ BITS 64
 	section .text
 
 asm_strstr:
-	push rbp				; Preserve original base pointer
+	push rbp,				; Preserve original base pointer
 	mov rbp, rsp			; Set base pointer to stack pointer
 
 _while:
