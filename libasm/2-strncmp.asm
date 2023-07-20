@@ -3,66 +3,47 @@ BITS 64
     section .text
 
 asm_strncmp:
-    ; Function prologue: Saving the base pointer (RBP) and stack pointer (RSP)
-    push rbp
-    mov rbp, rsp
-    push rcx   ; Save RCX (counter) on the stack
+	push rbp			    ; preserve original base pointer
+	mov rbp, rsp		    ; set base pointer to stack pointer
+    push rcx                ; save rcx (counter) on stack
 
 _Loop:
-    ; Load the character from the source string (RDI) into RAX and zero-extend it to 32 bits (EAX)
-    mov rax, rdi
-    mov rcx, rsi   ; Copy the source pointer (RSI) into RCX to access characters from it
+    mov rax, rdi            ; load in character from source string
+    mov rcx, rsi            ; copy source pointer to access characters
+    movzx eax, BYTE [rax]   ; move byte at current pos in source to eax
+    movzx ecx, BYTE [rcx]   ; move byte at current pos in dest to ecx
 
-    ; Load the byte (character) at the current position of the source string (RDI) into EAX
-    movzx eax, BYTE [rax]
+    cmp al, 0x0             ; if character from source string null terminator?
+    je _process             ; prepare to treturn value
 
-    ; Load the byte (character) at the current position of the destination string (RSI) into ECX
-    movzx ecx, BYTE [rcx]
+    cmp al, cl              ; Compare characters (eax and exc)
+    jne _process            ; prepare to treturn value
 
-    ; Compare the two characters
-    cmp al, 0x0   ; Check if the source character (EAX) is null (end of string)
-    je _L1        ; If it is, jump to the label _L1
+    inc rdi                 ; slide forward one character on source
+    inc rsi                 ; slide forward one character on dest
 
-    cmp al, cl    ; Compare the characters (EAX and ECX)
-    jne _L1       ; If they are not equal, jump to the label _L1
+    dec edx                 ; decrement counter value
+    jz _strs_eq             ; if edx reached zero strings are equal so 
+    jmp _Loop               ; if not move back to top of loop
 
-    ; Increment the pointers and decrement the counter (EDX)
-    inc rdi
-    inc rsi
-    dec edx
+_process:
+    cmp al, cl              ; recompare characters
+    je _strs_eq             ; prepare to return 0
+    jl _less_than           ; prepare to return -1
 
-    ; If the counter (EDX) has reached zero, we have successfully compared the specified number of characters
-    jz _Is        ; Jump to the label _Is
+    mov RAX, 0x1            ; return 1
+    jmp _end                ; proced to end
 
-    ; If the counter (EDX) has not reached zero, continue comparing the next characters
-    jmp _Loop
+_strs_eq:
+    mov RAX, 0x0            ; strings equal up to limit so return 0
+    jmp _end                ; proced to end
 
-_L1:
-    ; We reach this label when characters are not equal or the source string has ended
-
-    ; Compare the characters again (to check if they are equal, but we already know they are not)
-    cmp al, cl
-    je _Is        ; If they are equal, strings are equal up to the specified number of characters
-
-    jl _Lt        ; If not equal and source character < destination character, jump to _Lt
-
-    ; If not equal and source character > destination character, return 1
-    mov RAX, 0x1
-    jmp _end
-
-_Is:
-    ; Strings are equal up to the specified number of characters (counter reached zero)
-    mov RAX, 0x0  ; Return 0 to indicate equality
-    jmp _end
-
-_Lt:
-    ; Source character < destination character
-    mov RAX, -0x1 ; Return -1 to indicate source string is less than destination string
-    jmp _end
+_less_than:
+    mov RAX, -0x1           ; src < dest character so return - 1
+    jmp _end                ; procede to end
 
 _end:
-    ; Function epilogue: Restore the original value of RCX and return
-    pop rcx
-    mov rbp, rsp
-    pop rbp
-    ret
+    pop rcx                 ; restore original value of rcx
+	mov rsp, rbp		    ; restore stack pointer
+	pop rbp				    ; restore base pointer
+	ret					    ; go back to the caller
