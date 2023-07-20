@@ -32,13 +32,13 @@ _new_com:
 
 _no_match:
     xor rax, rax
-    jmp quit2
+    jmp _end
 
 _pre_end:
     mov rax, rdi
     add rax, rcx
 
-quit2:
+_end:
     pop r9
     pop rbx
     pop rdx
