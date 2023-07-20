@@ -3,8 +3,8 @@ BITS 64
     section .text
 
 asm_strncmp:
-	push rbp			    ; preserve original base pointer
-	mov rbp, rsp		    ; set base pointer to stack pointer
+    push rbp	    	    ; preserve original base pointer
+    mov rbp, rsp	    ; set base pointer to stack pointer
     push rcx                ; save rcx (counter) on stack
 
 _Loop:
@@ -40,10 +40,9 @@ _strs_eq:
 
 _less_than:
     mov RAX, -0x1           ; src < dest character so return - 1
-    jmp _end                ; procede to end
 
 _end:
     pop rcx                 ; restore original value of rcx
-	mov rsp, rbp		    ; restore stack pointer
-	pop rbp				    ; restore base pointer
-	ret					    ; go back to the caller
+    mov rsp, rbp            ; restore stack pointer
+    pop rbp	            ; restore base pointer
+    ret		            ; go back to the caller
