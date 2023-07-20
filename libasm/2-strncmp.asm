@@ -23,7 +23,7 @@ _Loop:
     inc rsi                 ; slide forward one character on dest
 
     dec edx                 ; decrement counter value
-    jz _strs_eq             ; if edx reached zero strings are equal so 
+    jz _strs_eq             ; if edx reached zero strings are equal so
     jmp _Loop               ; if not move back to top of loop
 
 _process:
