@@ -22,7 +22,6 @@ _search_char:
     mov bl, [rsi + r9]     ; move character from characters to search into bl
     cmp bl, 0              ; have we reached the null terminating byte?
     jz _new_comp           ; If so, we haven't found a match, so move on
-
     cmp dl, bl             ; does character (dl) from source match query (bl)?
     je _end                ; if so, then jump to the end
     jmp _new_search        ; if not then we have to keep searching...
@@ -37,9 +36,8 @@ _new_search:
 
 _end:
     mov rax, rcx          ; store the result (if any)
-
     pop r9                ; restore contents of r9
-    pop rbx               ; restore contents of r9
-    pop rdx               ; restore contents of r9
-    pop rcx               ; restore contents of r9
+    pop rbx               ; restore contents of rbx
+    pop rdx               ; restore contents of rdx
+    pop rcx               ; restore contents of rcx
     ret                   ; go back to the caller
