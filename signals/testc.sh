@@ -14,4 +14,3 @@ if [[ (! -f "$SRC_FILE") || (! -f "$DRIVER") ]]; then
 fi
 
 $CC $FLAGS $SRC_FILE $DRIVER -o $EXECUTABLE
-
