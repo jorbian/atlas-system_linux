@@ -9,7 +9,7 @@ void handle_sigint(int signum);
 /**
  * handle_sigint - the actual signal handler
  * @signum: enum value assosiated with signal
- * 
+ *
 */
 void handle_sigint(int signum)
 {
