@@ -22,14 +22,16 @@ int handle_sigaction(void)
 {
 	struct sigaction new_action, old_action;
 
+	int exit_status = 0;
+
 	new_action.sa_handler = handle_sigint;
 	sigemptyset(&new_action.sa_mask);
 	new_action.sa_flags = 0;
 
 	sigaction(SIGINT, NULL, &old_action);
 	if (old_action.sa_handler != SIG_IGN)
-		sigaction(SIGINT, &new_action, NULL);
+		exit_status = (sigaction(SIGINT, &new_action, NULL));
 
-	return (0);
+	return (exit_status);
 }
 
