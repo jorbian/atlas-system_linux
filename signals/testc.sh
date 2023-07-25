@@ -3,14 +3,14 @@
 CC="gcc"
 FLAGS="-Wall -Wextra -Werror -pedantic -g"
 
-SRC_FILE=$1
-FIRST_CHAR="${SRC_FILE:0:1}"
-DRIVER="${FIRST_CHAR}-main.c"
-EXECUTABLE="${SRC_FILE%.*}"
+TASK_FILE=$1
+FIRST_CHAR="${TASK_FILE:0:1}"
+SRC_FILES="$(find . -maxdepth 1 -type f -name "${FIRST_CHAR}*")"
+EXECUTABLE="${TASK_FILE%.*}"
 
-if [[ (! -f "$SRC_FILE") || (! -f "$DRIVER") ]]; then
+if [[ (! -f "$TASK_FILE") ]]; then
     echo "USAGE: PROJECT SOURCE FILE IN DIRECTORY"
     exit 1
 fi
 
-$CC $FLAGS $SRC_FILE $DRIVER -o $EXECUTABLE
+$CC $FLAGS $SRC_FILES -o $EXECUTABLE
