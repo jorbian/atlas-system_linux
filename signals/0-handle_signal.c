@@ -4,14 +4,17 @@
 
 #include "signals.h"
 
+void handle_sigint(int signum);
+
 /**
  * handle_sigint - the actual signal handler
- *
- * Return: 0
+ * @signum: enum value assosiated with signal
+ * 
 */
-static void handle_sigint(int signum)
+void handle_sigint(int signum)
 {
-	printf("Gotcha! %d\n", signum);
+	printf("Gotcha! [%d]\n", signum);
+	fflush(stdout);
 }
 
 /**
