@@ -24,7 +24,7 @@ int handle_sigaction(void)
 
 	int exit_status = 0;
 
-	new_action.sa_handler = print_gotcha;
+	new_action.sa_handler = &print_gotcha;
 	sigemptyset(&new_action.sa_mask);
 	new_action.sa_flags = 0;
 
