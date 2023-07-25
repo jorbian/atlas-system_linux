@@ -3,13 +3,13 @@
 #include <signal.h>
 
 /**
- * handle_sigint - the actual signal handler
- * @signum: enum value associated with the signal
- *
+ * print_gotcha - print a message that a signal was received
+ * @sig: the signal
+ * Return: void
 */
-void handle_sigint(int signum)
+void print_gotcha(int sig)
 {
-	printf("Gotcha! [%d]\n", signum);
+	printf("Gotcha! [%d]\n", sig);
 	fflush(stdout);
 }
 
@@ -24,7 +24,7 @@ int handle_sigaction(void)
 
 	int exit_status = 0;
 
-	new_action.sa_handler = handle_sigint;
+	new_action.sa_handler = print_gotcha;
 	sigemptyset(&new_action.sa_mask);
 	new_action.sa_flags = 0;
 
