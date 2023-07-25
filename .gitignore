@@ -55,5 +55,5 @@ dkms.conf
 **/*.pl
 **/*.lua
 **/.vscode/
-**/*-main.c
+#**/*-main.c
 **/_putchar.c
