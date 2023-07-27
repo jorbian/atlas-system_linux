@@ -11,9 +11,9 @@
  * @sig: the signal
  * Return: void
 */
-void handle_sigint(int my_sig)
+void handle_sigint(int sig)
 {
-	printf("Gotcha! [%i]\n", my_sig);
+	printf("Gotcha! [%i]\n", sig);
 	fflush(stdout);
 }
 

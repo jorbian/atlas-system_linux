@@ -1,8 +1,11 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <signal.h>
 
 typedef void (*sighandler_t)(int);
 
