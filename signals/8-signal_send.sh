@@ -12,4 +12,4 @@ if (! kill -0 "$1" 2>/dev/null); then
     exit 1
 fi
 
-kill -QUIT $PID
+kill -s 3 $1
