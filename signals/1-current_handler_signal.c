@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
 
 /**
 * current_handler_signal - gets the current handler of SIGINT
