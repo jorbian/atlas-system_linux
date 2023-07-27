@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
-trap "echo Nope" ABRT IO TERM"
+#!/bin/sh
+trap "echo Nope" ABRT IO TERM
