@@ -20,17 +20,14 @@ void print_gotcha(int sig)
 */
 int handle_sigaction(void)
 {
-	struct sigaction new_action, old_action;
+	struct sigaction new_action;
 
 	int exit_status = 0;
 
-	new_action.sa_handler = &print_gotcha;
-	sigemptyset(&new_action.sa_mask);
-	new_action.sa_flags = 0;
+	memset(&new_action, 0, sizeof(new_action));
+	new_action.sa_handler = signal_handler;
 
-	sigaction(SIGINT, NULL, &old_action);
-	if (old_action.sa_handler != SIG_IGN)
-		exit_status = (sigaction(SIGINT, &new_action, NULL));
+	exit_status = sigaction(SIGINT, &handle, NULL);
 
 	return (exit_status);
 }
