@@ -1,5 +1,6 @@
-section .text
+BITS 64
     global asm_strlen
+    section .text
 
 asm_strlen:
     push rbp               ; Save base pointer
