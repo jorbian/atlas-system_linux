@@ -9,12 +9,10 @@ void (*current_handler_sigaction(void))(int)
 {
 	struct sigaction prev_action;
 
-	memset(&prev_action, 0, sizeof(prev_action);
+	memset(&prev_action, 0, sizeof(prev_action));
 
-	if (sigaction(SIGINT, NULL, &prev) == -1)
+	if (sigaction(SIGINT, NULL, &prev_action) == -1)
 		return (NULL);
 
-	return (prev.sa_handler);
-}
-
+	return (prev_action.sa_handler);
 }
