@@ -17,15 +17,6 @@ void print_header(char *ls)
 	class(ls);
 	endianness(ls);
 	version(ls);
-
-	getOSABI((unsigned char)ls[EI_OSABI]);
-	PRINT_LABEL("ABI Version:");
-	printf("%u\n", (unsigned char)ls[EI_ABIVERSION]);
-
-	if ((unsigned char)ls[EI_CLASS] == ELFCLASS64)
-		print_64bit(ls);
-	else if ((unsigned char)ls[EI_CLASS] == ELFCLASS32)
-		print_32bit(ls);
 }
 
 /**
