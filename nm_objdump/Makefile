@@ -27,10 +27,10 @@ $(TASK_OBJ_PATH):
 	mkdir -p $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(TASK_OBJ_PATH)
-	$(CC) $(CFLAGS) -c $< -o $@ -lstdc++
+	$(CXX) $(CFLAGS) -c $< -o $@ -lstdc++
 
 $(OBJ_PATH)/%: $(OBJ_PATH)/%.o
-	$(CC) $(CFLAGS) $< -o $@
+	$(CXX) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(OBJ_PATH)
