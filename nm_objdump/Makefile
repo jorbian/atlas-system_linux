@@ -1,5 +1,6 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -std=c99 -Iinc -lm -lstdc++
+CXX := g++
+CFLAGS := -Wall -Wextra -Werror -Iinc -lm -g
 
 ifdef DEBUG
 	CFLAGS += -g
@@ -20,13 +21,13 @@ OBJ_FILES := $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o,$(SRC_FILES))
 all: $(TASK_BIN) clean
 
 $(TASK_BIN): %: $(OBJ_PATH)/% $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(wildcard $</*) -o$@
+	$(CXX) $(CFLAGS) $(wildcard $</*) ./lib/libLIEF.a -o$@
 
 $(TASK_OBJ_PATH):
 	mkdir -p $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(TASK_OBJ_PATH)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -lstdc++
 
 $(OBJ_PATH)/%: $(OBJ_PATH)/%.o
 	$(CC) $(CFLAGS) $< -o $@
