@@ -30,6 +30,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(TASK_OBJ_PATH)
 	$(CXX) $(CFLAGS) -c $< -o $@ -lstdc++
 
 $(OBJ_PATH)/%: $(OBJ_PATH)/%.o
+	alias gcc="g++"
 	$(CXX) $(CFLAGS) $< -o $@
 
 clean:
