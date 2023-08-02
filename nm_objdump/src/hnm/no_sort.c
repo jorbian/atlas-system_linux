@@ -25,9 +25,9 @@ void no_sort(const char *filename)
 
 		print_address(symtab[i]);
 		
-		printf("%s  %d\n",
-			symtab[i]->name,
-			symtab[i]->type
+		printf(" %d  %s\n",
+			symtab[i]->type,
+			symtab[i]->name
 		);
 	}
 
