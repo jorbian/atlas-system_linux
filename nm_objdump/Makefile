@@ -1,6 +1,6 @@
 CC := gcc
 CXX := g++
-CFLAGS := -Wall -Wextra -Werror -Iinc -lm -g
+CFLAGS := -Wall -Wextra -Werror -Wl,-rpath=lib -Llib -LLIEF -Iinc -g
 
 ifdef DEBUG
 	CFLAGS += -g
