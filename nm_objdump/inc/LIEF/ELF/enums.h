@@ -2,10 +2,6 @@
 #define LIEF_ELF_C_ENUMS_H_
 #include "LIEF/ELF/undef.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define _LIEF_EN(N) LIEF_ELF_##N
 #define _LIEF_EN_2(N, TYPE) LIEF_ELF_##N
 #define _LIEF_EI(X) LIEF_ELF_##X
