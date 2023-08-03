@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "LIEF/LIEF.h"
 #include "helf.h"
 
 static int is_32bit;

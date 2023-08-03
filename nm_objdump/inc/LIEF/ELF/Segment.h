@@ -4,6 +4,14 @@
 #include <stdint.h>
 #include "LIEF/ELF/enums.h"
 
+/**  @defgroup elf_segment_c_api Segment
+ *  @ingroup elf_c_api
+ *  @addtogroup elf_segment_c_api
+ *  @brief Segment C API
+ *
+ *  @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif

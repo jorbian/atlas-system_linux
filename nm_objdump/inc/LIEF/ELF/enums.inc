@@ -267,6 +267,62 @@ enum _LIEF_EN(OS_ABI) {
   _LIEF_EI(ELFOSABI_STANDALONE)   = 255 /**< Standalone (embedded) application */
 };
 
+/* ELF Relocations */
+
+#define ELF_RELOC(name, value) _LIEF_EI(name) = value,
+
+/** x86_64 relocations. */
+enum _LIEF_EN(RELOC_x86_64) {
+   #include "LIEF/ELF/Relocations/x86_64.def"
+};
+
+/** i386 relocations. */
+enum  RELOC_i386 {
+   #include "LIEF/ELF/Relocations/i386.def"
+};
+
+/* ELF Relocation types for PPC32 */
+enum _LIEF_EN(RELOC_POWERPC32) {
+   #include "LIEF/ELF/Relocations/PowerPC.def"
+};
+
+/* ELF Relocation types for PPC64 */
+enum _LIEF_EN(RELOC_POWERPC64) {
+   #include "LIEF/ELF/Relocations/PowerPC64.def"
+};
+
+/* ELF Relocation types for AArch64 */
+enum _LIEF_EN(RELOC_AARCH64) {
+   #include "LIEF/ELF/Relocations/AArch64.def"
+};
+
+/* ELF Relocation types for ARM */
+enum _LIEF_EN(RELOC_ARM) {
+  #include "LIEF/ELF/Relocations/ARM.def"
+};
+
+/* ELF Relocation types for Mips */
+enum _LIEF_EN(RELOC_MIPS) {
+  #include "LIEF/ELF/Relocations/Mips.def"
+};
+
+/* ELF Relocation types for Hexagon */
+enum _LIEF_EN(RELOC_HEXAGON) {
+  #include "LIEF/ELF/Relocations/Hexagon.def"
+};
+
+/* ELF Relocation types for S390/zSeries */
+enum _LIEF_EN(RELOC_SYSTEMZ) {
+  #include "LIEF/ELF/Relocations/SystemZ.def"
+};
+
+/* ELF Relocation type for Sparc. */
+enum _LIEF_EN(RELOC_SPARC) {
+  #include "LIEF/ELF/Relocations/Sparc.def"
+};
+
+#undef ELF_RELOC
+
 /* Specific e_flags for PPC64 */
 enum _LIEF_EN(PPC64_EFLAGS) {
   /* e_flags bits specifying ABI: */
