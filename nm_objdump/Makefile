@@ -1,10 +1,7 @@
 CC := gcc
 CXX := g++
-CFLAGS := -Wall -Wextra -Werror -Wl,-rpath=lib -Llib -LLIEF -Iinc -g
-
-ifdef DEBUG
-	CFLAGS += -g
-endif
+CFLAGS := -Wall -Wextra -Werror -Wl,-rpath=lib -Llib -Iinc -g
+LIBS := -lLIEF
 
 OBJ_PATH := obj
 SRC_PATH := src
@@ -21,16 +18,15 @@ OBJ_FILES := $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o,$(SRC_FILES))
 all: $(TASK_BIN) clean
 
 $(TASK_BIN): %: $(OBJ_PATH)/% $(OBJ_FILES)
-	$(CXX) $(CFLAGS) $(wildcard $</*) ./lib/libLIEF.a -o$@
+	$(CXX) $(CFLAGS) $(wildcard $</*) $(LIBS) -o $@
 
 $(TASK_OBJ_PATH):
 	mkdir -p $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(TASK_OBJ_PATH)
-	$(CXX) $(CFLAGS) -c $< -o $@ -lstdc++
+	$(CXX) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH)/%: $(OBJ_PATH)/%.o
-	alias gcc="g++"
 	$(CXX) $(CFLAGS) $< -o $@
 
 clean:
