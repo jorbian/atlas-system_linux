@@ -11,11 +11,11 @@ def run_fake_program(filename="a.out", program="hls", command_string="ls"):
         command_args,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        universal_newlines=True
+        text=True
     )
     output_message, error_message = x.communicate()
-    if x.returncode != 0:
-        output_message = error_message
+
+    output_message = error_message if error_message else output_message
 
     error_happened = not (output_message.find(program[1:]))
 
@@ -25,7 +25,7 @@ def run_fake_program(filename="a.out", program="hls", command_string="ls"):
     else:
         print_to, exit_stat = sys.stdout, 0
 
-    print(output_message, file=print_to, end="")  # Decode output_message if using text mode
+    print(output_message, file=print_to, end="")
 
     exit(exit_stat)
 
