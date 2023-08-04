@@ -10,7 +10,7 @@ export INVOKE
 all: 0-hreadelf 1-hreadelf 2-hreadelf
 
 0-hreadelf:
-	cp ../nm_objdump/src/fake_elf.py $@
+	cp ./src/fake_elf.py $@
 	@echo -n "program='0-" >> $@
 	@echo "hreadelf'" >> $@
 	@echo "command_string='readelf -W -h {}'" >> $@
@@ -18,7 +18,7 @@ all: 0-hreadelf 1-hreadelf 2-hreadelf
 	@echo "$$INVOKE" >> $@
 
 1-hreadelf:
-	cp ../nm_objdump/src/fake_elf.py $@
+	cp ./src/fake_elf.py $@
 	@echo -n "program='1-" >> $@
 	@echo "hreadelf'" >> $@
 	@echo "command_string='readelf -W -S {}'" >> $@
@@ -26,7 +26,7 @@ all: 0-hreadelf 1-hreadelf 2-hreadelf
 	@echo "$$INVOKE" >> $@
 
 2-hreadelf:
-	cp ../nm_objdump/src/fake_elf.py $@
+	cp ./src/fake_elf.py $@
 	@echo -n "program='2-" >> $@
 	@echo "hreadelf'" >> $@
 	@echo "command_string='readelf -W -l {}'" >> $@
@@ -34,7 +34,7 @@ all: 0-hreadelf 1-hreadelf 2-hreadelf
 	@echo "$$INVOKE" >> $@
 
 100-hreadelf:
-	cp ../nm_objdump/src/fake_elf.py $@
+	cp ./src/fake_elf.py $@
 	@echo -n "program='2-" >> $@
 	@echo "hreadelf'" >> $@
 	@echo "command_string='readelf -W -s {}'" >> $@
