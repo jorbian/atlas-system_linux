@@ -11,7 +11,7 @@ def run_fake_program(filename="a.out", program="hls", command_string="ls"):
         command_args,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        text=True
+        universal_newlines=True
     )
     output_message, error_message = x.communicate()
 
