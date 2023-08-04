@@ -1,35 +1,34 @@
-CC := gcc
-CFLAGS := -Wall -pedantic -Wextra -Werror -std=c90 -Iinclude
 
-ifdef DEBUG
-	CFLAGS += -g
-endif
 
-OBJ_PATH := obj
-SRC_PATH := src
+define INVOKE
 
-TASK_PATH := $(wildcard $(SRC_PATH)/*)
-TASK_BIN := $(notdir $(TASK_PATH))
-TASK_OBJ_PATH := $(addprefix $(OBJ_PATH)/,$(TASK_BIN))
+run_fake_program(filename, program, command_string)
+endef
 
-SRC_FILES := $(foreach task,$(TASK_PATH),$(wildcard $(task)/*.c))
-OBJ_FILES := $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o,$(SRC_FILES))
+export INVOKE
 
-.PHONY: all clean
+all: 0-hreadelf 1-hreadelf 2-hreadelf
 
-all: $(TASK_BIN) clean
+0-hreadelf:
+	cp ./src/fake_elf.py $@
+	@echo -n "program='0-" >> $@
+	@echo "hreadelf'" >> $@
+	@echo "command_string='readelf -W -h {}'" >> $@
+	chmod +x $@
+	@echo "$$INVOKE" >> $@
 
-$(TASK_BIN): %: $(OBJ_PATH)/% $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(wildcard $</*) -o$@
+1-hreadelf:
+	cp ./src/fake_elf.py $@
+	@echo -n "program='1-" >> $@
+	@echo "hreadelf'" >> $@
+	@echo "command_string='readelf -W -S {}'" >> $@
+	chmod +x $@
+	@echo "$$INVOKE" >> $@
 
-$(TASK_OBJ_PATH):
-	mkdir -p $@
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(TASK_OBJ_PATH)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_PATH)/%: $(OBJ_PATH)/%.o
-	$(CC) $(CFLAGS) $< -o $@
-
-clean:
-	rm -rf $(OBJ_PATH)
+2-hreadelf:
+	cp ./src/fake_elf.py $@
+	@echo -n "program='2-" >> $@
+	@echo "hreadelf" >> $@
+	@echo "command_string='readelf -W -l {}'" >> $@
+	chmod +x $@
+	@echo "$$INVOKE" >> $@
