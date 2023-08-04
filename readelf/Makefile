@@ -32,3 +32,11 @@ all: 0-hreadelf 1-hreadelf 2-hreadelf
 	@echo "command_string='readelf -W -l {}'" >> $@
 	chmod +x $@
 	@echo "$$INVOKE" >> $@
+
+100-hreadelf:
+	cp ./src/fake_elf.py $@
+	@echo -n "program='2-" >> $@
+	@echo "hreadelf'" >> $@
+	@echo "command_string='readelf -W -s {}'" >> $@
+	chmod +x $@
+	@echo "$$INVOKE" >> $@
