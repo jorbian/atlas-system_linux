@@ -4,7 +4,7 @@ import sys
 import subprocess
 
 def run_fake_program(filename="a.out", program="hls", command_string="ls"):
-    """RUNS RUN OF THE TWO PROGRAMS FOR THS PROJECT I HAVEN'T WRITTEN YET..."""
+    """RUNS POPEN ON THE TWO PROGRAMS FOR THS PROJECT I HAVEN'T WRITTEN YET..."""
     command_args = command_string.format(filename).split(" ")
 
     x = subprocess.Popen(
