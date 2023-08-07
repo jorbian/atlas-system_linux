@@ -12,8 +12,8 @@ void print_python_list(PyObject *p)
 
 	if (PyList_Check(p) == 0)
 		return;
-	else
-		printf("[*] Python list info\n");
+
+	printf("[*] Python list info\n");
 
 	length = PyList_Size(p);
 
