@@ -10,15 +10,13 @@ void print_python_list(PyObject *p)
 {
 	Py_ssize_t i, length;
 
-	if (PyList_Check(p) == 0)
+	if (!PyList_Check(p))
 		return;
-
-	printf("[*] Python list info\n");
 
 	length = PyList_Size(p);
 
 	printf("[*] Size of the Python List = %lu\n", length);
-	printf("[*] Allocated = %lu\n", Py_SIZE(p));
+	printf("[*] Allocated = %ld\n", ((PyListObject *)p)->allocated);
 
 	for (i = 0; i < length; i++)
 	{

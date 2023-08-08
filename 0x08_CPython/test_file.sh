@@ -23,7 +23,7 @@ if [ $? -eq 1 ]; then
 fi
 
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -shared -Wl,-soname,$LIB_NAME \
-    -o $OUTFILE -fPIC -I/usr/include/python3.10 *.c
+    -o $OUTFILE -fPIC -I/usr/include/python3.10 $TASK_FILE
 
 if [ $? -eq 0 ]; then
     ./$DRIVER
