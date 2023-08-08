@@ -1,5 +1,7 @@
 #include "myPy.h"
 
+static PyObject *get_item(PyObject *op, Py_ssize_t i);
+
 /**
  * print_python_list - print basic info about Python list
  * @p: pointer to a Python object (presumably of subtype PyList_Type)
@@ -9,6 +11,7 @@
 void print_python_list(PyObject *p)
 {
 	Py_ssize_t i, length;
+	char type[255];
 
 	if (!PyList_Check(p))
 		return;
@@ -21,10 +24,20 @@ void print_python_list(PyObject *p)
 
 	for (i = 0; i < length; i++)
 	{
-		printf(
-			"Element %lu: %s\n",
-			i,
-			(((PyListObject *)p)->ob_item[i]->ob_type)->tp_name
-		);
+		strcpy(type, get_item(p, i)->ob_type->tp_name);
+
+		printf("Element %lu: %s\n", i, type);
 	}
+}
+
+/**
+ * get_item - just a copy of a forbidden function sans error checks
+ * @op: pointer to the list object
+ * @i: the length
+ *
+ * Return: pointer to whatever's in the list (as object)
+*/
+static PyObject *get_item(PyObject *op, Py_ssize_t i)
+{
+	return ((((PyListObject *)op)->ob_item[i]));
 }

@@ -1,5 +1,7 @@
 #include "myPy.h"
 
+static PyObject *get_item(PyObject *op, Py_ssize_t i);
+
 /**
  * print_python_bytes - print some basic info about Python bytes objects.
  * @p: pointer to a Python object (presumably of subtype PyList_Type)
@@ -8,28 +10,25 @@
 */
 void print_python_bytes(PyObject *p)
 {
-	Py_ssize_t size;
+	Py_ssize_t i, size;
 
-	unsigned int i;
+	char *bytes_string;
 
 	printf("[.] bytes object info\n");
+
 	if (!PyBytes_CheckExact(p))
 	{
 		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
 	size = PyBytes_Size(p);
+	bytes_string = PyBytes_AsString(p);
 
 	printf("  size: %ld\n", size);
-	printf("  trying string: %s\n", PyBytes_AsString(p));
-
-	if (size >= 10)
-		size = 10;
-	else
-		size++;
-
+	printf("  trying string: %s\n", bytes_string);
 	printf("  first %lu bytes:", size);
-	for (i = 0; i < size; i++)
+
+	for (i = 0; i < 11; i++)
 		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
 	putchar('\n');
 }
@@ -43,6 +42,8 @@ void print_python_bytes(PyObject *p)
 void print_python_list(PyObject *p)
 {
 	Py_ssize_t i, length;
+	PyObject *current_item;
+	char type[255];
 
 	if (!PyList_Check(p))
 		return;
@@ -55,10 +56,30 @@ void print_python_list(PyObject *p)
 
 	for (i = 0; i < length; i++)
 	{
-		printf(
-			"Element %lu: %s\n",
-			i,
-			(((PyListObject *)p)->ob_item[i]->ob_type)->tp_name
-		);
+		current_item = get_item(p, i);
+
+		strcpy(type, current_item->ob_type->tp_name);
+
+		printf("Element %ld: ", i);
+
+		if ((strcmp(type, "str") == 0) || (strcmp(type, "bytes") == 0))
+		{
+			printf("bytes\n");
+			print_python_bytes((PyObject *)current_item);
+			continue;
+		}
+		printf("%s\n", type);
 	}
+}
+
+/**
+ * get_item - just a copy of a forbidden function sans error checks
+ * @op: pointer to the list object
+ * @i: the length
+ *
+ * Return: pointer to whatever's in the list (as object)
+*/
+static PyObject *get_item(PyObject *op, Py_ssize_t i)
+{
+	return ((((PyListObject *)op)->ob_item[i]));
 }

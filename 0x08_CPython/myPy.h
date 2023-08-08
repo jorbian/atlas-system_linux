@@ -2,6 +2,7 @@
 #define MYPY_H
 
 #include "Python.h"
+#include <string.h>
 
 #define PY_SSIZE_T_CLEAN
 
