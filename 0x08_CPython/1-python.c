@@ -24,7 +24,7 @@ void print_python_list(PyObject *p)
 		printf(
 			"Element %lu: %s\n",
 			i,
-			(PyList_GetItem(p, i)->ob_type)->tp_name
+			(((PyListObject *)p)->ob_item[i]->ob_type)->tp_name
 		);
 	}
 }
