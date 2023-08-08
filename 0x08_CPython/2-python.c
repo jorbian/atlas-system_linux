@@ -32,7 +32,7 @@ void print_python_bytes(PyObject *p)
 	{
 		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
 
-		if (i <= size)
+		if (i >= size)
 			break;
 	}
 	putchar('\n');
