@@ -9,5 +9,5 @@
 */
 void print_python_float(PyObject *p)
 {
-
+    (void)p;
 }

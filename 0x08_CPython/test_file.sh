@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TASK_FILE=$1
-LIB_NAME="PyList"
+LIB_NAME="Python"
 OUTFILE="lib$LIB_NAME.so"
 
 ERROR_MSG="$(ls $1 2>&1 > /dev/null)"
@@ -23,7 +23,7 @@ if [ $? -eq 1 ]; then
 fi
 
 gcc -Wall -Werror -Wextra -pedantic -std=c99 -shared -Wl,-soname,$LIB_NAME \
-    -o $OUTFILE -fPIC -I/usr/include/python3.10 $TASK_FILE
+    -o $OUTFILE -fPIC -I/usr/include/python3.10 *.c
 
 if [ $? -eq 0 ]; then
     ./$DRIVER

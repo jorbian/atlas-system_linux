@@ -9,5 +9,5 @@
 */
 void print_python_int(PyObject *p)
 {
-
+    (void)p;
 }

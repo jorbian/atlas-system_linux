@@ -9,5 +9,12 @@
 */
 void print_python_bytes(PyObject *p)
 {
-
+    printf("[.] bytes object info\n");
+    if (!PyBytes_CheckExact(p))
+    {
+        printf("[ERROR] Invalid Bytes Object\n");
+        return;
+    }
+    printf("  size: %ld\n", PyBytes_Size(p));
+    printf("  trying string %s\n", PyBytes_AsString(p));
 }
