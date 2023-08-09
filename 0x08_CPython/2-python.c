@@ -1,5 +1,7 @@
 #include "myPy.h"
 
+#define MAX_BYTES 10
+
 static PyObject *get_item(PyObject *op, Py_ssize_t i);
 
 /**
@@ -26,12 +28,17 @@ void print_python_bytes(PyObject *p)
 
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", bytes_string);
-	printf("  first %lu bytes:", size + 1);
+
+	if (size > MAX_BYTES)
+		size = MAX_BYTES;
+	else
+		size++;
+
+	printf("  first %lu bytes:", size);
 
 	for (i = 0; i < 11; i++)
 	{
 		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
-
 		if (i >= size)
 			break;
 	}
