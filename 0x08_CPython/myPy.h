@@ -9,7 +9,7 @@
 
 #define BS_AS_STRING(op) ((PyBytesObject *)op)->ob_sval
 #define GET_ITEM(op, i) ((((PyListObject *)op)->ob_item[i]))
-#define SIZE(op) (( _PyVarObject_CAST(op))->ob_size)
+#define SIZE(op) (((PyVarObject *)op)->ob_size)
 
 void print_python_list(PyObject *p);
 void print_python_bytes(PyObject *p);
