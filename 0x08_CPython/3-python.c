@@ -62,7 +62,7 @@ void print_python_bytes(PyObject *p)
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", bytes_string);
 
-	if (size > MAX_BYTES)
+	if (size >= MAX_BYTES)
 		size = MAX_BYTES;
 	else
 		size++;
