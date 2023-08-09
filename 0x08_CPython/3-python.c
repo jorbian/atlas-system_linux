@@ -94,7 +94,7 @@ void print_python_list(PyObject *p)
 	if (!PyList_Check(p))
 		return;
 
-	length = PyList_Size(p);
+	length = SIZE(p);
 
 	printf("[*] Python list info\n");
 	printf("[*] Size of the Python List = %lu\n", length);
