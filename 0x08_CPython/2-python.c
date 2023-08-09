@@ -36,11 +36,12 @@ void print_python_bytes(PyObject *p)
 
 	printf("  first %lu bytes:", size);
 
-	for (i = 0; i < 11; i++)
+	for (i = 0;; i++)
 	{
-		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
-		if (i >= size)
+		if (i > MAX_BYTES || i == size)
 			break;
+
+		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
 	}
 	putchar('\n');
 }
