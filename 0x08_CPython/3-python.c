@@ -1,9 +1,6 @@
-#define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "myPy.h"
 
 #define MAX_BYTES 10
-
-static PyObject *get_item(PyObject *op, Py_ssize_t i);
 
 /**
  * print_python_float - print some basic info about Python float objects.
@@ -60,7 +57,7 @@ void print_python_bytes(PyObject *p)
 		return;
 	}
 	size = PyBytes_Size(p);
-	bytes_string = PyBytes_AsString(p);
+	bytes_string = BS_AS_STRING(p);
 
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", bytes_string);
@@ -77,7 +74,7 @@ void print_python_bytes(PyObject *p)
 		if (i > MAX_BYTES || i == size)
 			break;
 
-		printf(" %02x", PyBytes_AsString(p)[i] & 0xff);
+		printf(" %02x", (BS_AS_STRING(p))[i] & 0xff);
 	}
 	putchar('\n');
 }
@@ -105,7 +102,7 @@ void print_python_list(PyObject *p)
 
 	for (i = 0; i < length; i++)
 	{
-		current_item = get_item(p, i);
+		current_item = GET_ITEM(p, i);
 
 		strcpy(type, current_item->ob_type->tp_name);
 
@@ -119,16 +116,4 @@ void print_python_list(PyObject *p)
 		}
 		printf("%s\n", type);
 	}
-}
-
-/**
- * get_item - just a copy of a forbidden function sans error checks
- * @op: pointer to the list object
- * @i: the length
- *
- * Return: pointer to whatever's in the list (as object)
-*/
-static PyObject *get_item(PyObject *op, Py_ssize_t i)
-{
-	return ((((PyListObject *)op)->ob_item[i]));
 }

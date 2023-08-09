@@ -1,9 +1,5 @@
 #include "myPy.h"
 
-#define MAX_BYTES 10
-
-static PyObject *get_item(PyObject *op, Py_ssize_t i);
-
 /**
  * print_python_bytes - print some basic info about Python bytes objects.
  * @p: pointer to a Python object (presumably of subtype PyList_Type)
@@ -69,7 +65,7 @@ void print_python_list(PyObject *p)
 
 	for (i = 0; i < length; i++)
 	{
-		current_item = get_item(p, i);
+		current_item = GET_ITEM(p, i);
 
 		strcpy(type, current_item->ob_type->tp_name);
 
@@ -83,16 +79,4 @@ void print_python_list(PyObject *p)
 		}
 		printf("%s\n", type);
 	}
-}
-
-/**
- * get_item - just a copy of a forbidden function sans error checks
- * @op: pointer to the list object
- * @i: the length
- *
- * Return: pointer to whatever's in the list (as object)
-*/
-static PyObject *get_item(PyObject *op, Py_ssize_t i)
-{
-	return ((((PyListObject *)op)->ob_item[i]));
 }

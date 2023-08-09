@@ -5,6 +5,10 @@
 #include <string.h>
 
 #define PY_SSIZE_T_CLEAN
+#define MAX_BYTES 10
+
+#define BS_AS_STRING(op) ((PyBytesObject *)op)->ob_sval
+#define GET_ITEM(op, i) ((((PyListObject *)op)->ob_item[i]))
 
 void print_python_list(PyObject *p);
 void print_python_bytes(PyObject *p);
