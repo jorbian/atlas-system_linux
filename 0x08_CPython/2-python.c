@@ -75,7 +75,7 @@ void print_python_list(PyObject *p)
 
 		printf("Element %ld: ", i);
 
-		if ((strcmp(type, "str") == 0) || (strcmp(type, "bytes") == 0))
+		if ((strcmp(type, "bytes") == 0))
 		{
 			printf("bytes\n");
 			print_python_bytes((PyObject *)current_item);
