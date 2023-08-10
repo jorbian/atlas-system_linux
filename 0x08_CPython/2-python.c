@@ -2,7 +2,7 @@
 
 /**
  * print_python_bytes - print some basic info about Python bytes objects.
- * @p: pointer to a Python object (presumably of subtype PyList_Type)
+ * @p: pointer to a Python object (presumably of subtype PyBytes)
  *
  * Return: Just returns void since we're not doing anything to it.
 */

@@ -1,10 +1,8 @@
 #include "myPy.h"
 
-#define MAX_BYTES 10
-
 /**
  * print_python_float - print some basic info about Python float objects.
- * @p: pointer to a Python object (presumably of subtype PyList_Type)
+ * @p: pointer to a Python object (presumably a loat)
  *
  * Return: Just returns void since we're not doing anything to it.
 */

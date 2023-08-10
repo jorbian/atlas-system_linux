@@ -1,9 +1,8 @@
-#define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include "myPy.h"
 
 /**
- * void print_python_string - print some basic info about Python float objects.
- * @p: pointer to a Python object (presumably of subtype PyList_Type)
+ * void print_python_string - a function that prints Python strings.
+ * @p: pointer to a Python object (presumably a string)
  *
  * Return: Just returns void since we're not doing anything to it.
 */
@@ -13,7 +12,7 @@ void print_python_string(PyObject *p)
 
 	printf("[.] string object info\n");
 
-	if (PyUnicode_Check(p) == 0)
+	if (!PyUnicode_Check(p))
 	{
 		printf("  [ERROR] Invalid String Object\n");
 		return;
