@@ -114,6 +114,8 @@ void print_python_list(PyObject *p)
 			print_python_bytes((PyObject *)current_item);
 			continue;
 		}
+		else if (strcmp(type, "float") == 0)
+			print_python_float((PyObject *)current_item);
 		printf("%s\n", type);
 	}
 }
