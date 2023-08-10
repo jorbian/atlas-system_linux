@@ -89,11 +89,14 @@ void print_python_list(PyObject *p)
 {
 	Py_ssize_t i, length;
 	PyObject *current_item;
+
 	char type[255];
 
 	if (!PyList_Check(p))
+	{
+		printf("[ERROR] Invalid List Object\n");
 		return;
-
+	}
 	length = SIZE(p);
 
 	printf("[*] Python list info\n");
