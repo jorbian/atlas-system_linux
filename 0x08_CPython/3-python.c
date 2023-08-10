@@ -115,7 +115,11 @@ void print_python_list(PyObject *p)
 			continue;
 		}
 		else if (strcmp(type, "float") == 0)
+		{
+			printf("float\n");
 			print_python_float((PyObject *)current_item);
+			continue;
+		}
 		printf("%s\n", type);
 	}
 }
