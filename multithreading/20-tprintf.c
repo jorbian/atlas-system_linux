@@ -2,8 +2,8 @@
 
 static pthread_mutex_t mutex_print;
 
-void mutex_constructor(void) __attribute__((constructor));
-void mutex_destructor(void) __attribute__((destructor));
+static void mutex_constructor(void) __attribute__((constructor));
+static void mutex_destructor(void) __attribute__((destructor));
 
 /**
 * mutex_constructor - initalize mutex function
