@@ -1,6 +1,6 @@
 #include "multithreading.h"
 
-static pthread_mutex_t mutex_print;;
+static pthread_mutex_t mutex_print;
 
 /**
 * mutex_constructor - initalize mutex function
