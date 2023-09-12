@@ -4,7 +4,6 @@ static pthread_mutex_t mutex_print;
 
 static void mutex_constructor(void) __attribute__((constructor));
 static void mutex_destructor(void) __attribute__((destructor));
-
 /**
 * mutex_constructor - initalize mutex function
 */
@@ -23,18 +22,6 @@ void mutex_constructor(void)
 void mutex_destructor(void)
 {
 	if (pthread_mutex_destroy(&mutex_print))
-	{
-		printf("mutex destroy fail\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-/**
- * mutex_destructor - destroys mutex
- */
-void mutex_destructor(void)
-{
-	if (pthread_mutex_destroy(&mutex_print) != 0)
 	{
 		printf("mutex destroy fail\n");
 		exit(EXIT_FAILURE);

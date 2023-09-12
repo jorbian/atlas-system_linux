@@ -8,7 +8,6 @@
 #include <stdarg.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <pthread.h>
 
 void *thread_entry(void *arg);
 int tprintf(char const *format, ...);
