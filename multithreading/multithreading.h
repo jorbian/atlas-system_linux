@@ -8,5 +8,7 @@
 
 void *thread_entry(void *arg);
 int tprintf(char const *format, ...);
+void mutex_constructor(void) __attribute__((constructor));
+void mutex_destructor(void) __attribute__((destructor));
 
 #endif
