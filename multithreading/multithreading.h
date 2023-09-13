@@ -9,6 +9,8 @@
 #include <pthread.h>
 #include <unistd.h>
 
+#include "list.h"
+
 void *thread_entry(void *arg);
 int tprintf(char const *format, ...);
 
