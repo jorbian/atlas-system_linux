@@ -31,7 +31,7 @@ void mutex_destructor(void)
 /**
  * tprintf - uses printf family to print out given formatted string
  * @format: format string for printed output, followed by vargs
- * 
+ *
  * Return: EXIT_SUCCESS (i.e. 0) or EXIT_FAILURE (i.e. 1)
  */
 int tprintf(char const *format, ...)
