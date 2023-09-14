@@ -53,6 +53,6 @@ int tprintf(char const *format, ...);
 list_t *prime_factors(char const *string);
 task_t *create_task(task_entry_t entry, void *param);
 void destroy_task(task_t *task);
-void *exec_tasks(list_t const *tasks);
+void exec_tasks(list_t const *tasks);
 
 #endif
