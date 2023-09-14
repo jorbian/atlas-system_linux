@@ -81,5 +81,4 @@ void exec_tasks(list_t const *tasks)
 		current_node = current_node->next;
 		id++;
 	}
-	return (NULL);
 }
