@@ -31,8 +31,8 @@ list_t *prime_factors(char const *string)
 			num /= current_prime;
 		}
 		current_prime += 1 + (current_prime != 2);
-
 	}
+
 	if (num >= 2)
 	{
 		cursor = malloc(sizeof(unsigned long));
