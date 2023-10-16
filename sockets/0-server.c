@@ -10,8 +10,8 @@
 #define MAX_CONNECTIONS 5
 
 static int server_socket;
-static saddr_t server_address;
-static socklen_t address_len = sizeof(server_address);
+static saddr_t server_addr;
+static socklen_t addr_len = sizeof(server_addr);
 
 /**
  * setup_socket - procedure for setting up a socket we won't listen to
@@ -25,16 +25,11 @@ static int setup_socket(int port)
 	if (server_socket == -1)
 		return (EXIT_FAILURE);
 
-	server_address.sin_family = AF_INET;
-	server_address.sin_addr.s_addr = INADDR_ANY;
-	server_address.sin_port = htons(port);
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_addr.s_addr = INADDR_ANY;
+	server_addr.sin_port = htons(port);
 
-	if (
-		bind(
-			server_socket,
-			(struct sockaddr *)&server_address,
-			address_len
-		) < 0)
+	if (bind(server_socket, (struct sockaddr *)&server_addr, addr_len) < 0)
 		return (EXIT_FAILURE);
 
 	if (listen(server_socket, MAX_CONNECTIONS) < 0)
