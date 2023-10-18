@@ -1,6 +1,12 @@
 #ifndef SOCKETS_H
 #define SOCKETS_H
 
+typedef struct sockaddr_in saddr_t;
+
+enum fd_indecies
+{
+	SERVER, NEW_SOCKET, CLIENT
+};
 
 /**
  * struct connection_s - struct that represents a network connection
