@@ -101,4 +101,6 @@ int main(void)
 	create_socket(&fd[SERVER], 1);
 	bind_socket(&fd[SERVER], &address, AF_INET, INADDR_ANY, PORT);
 	take_connection(&fd[SERVER], &address);
+
+	return (0);
 }
