@@ -13,7 +13,7 @@ static int server_socket, client;
 static saddr_t server_addr, client_addr;
 static socklen_t addr_len = sizeof(server_addr);
 
- /**
+/**
  * setup_socket - procedure for setting up a socket we won't listen to
  * @port: number of the port being listened to
  *
