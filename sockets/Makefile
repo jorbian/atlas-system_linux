@@ -1,29 +1,28 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -g
+CC ?= gcc
+CFLAGS := -Wall -Werror -Wextra -pedantic
+COBJFLAGS := $(CFLAGS) -c
+INC_PATH := ./inc
+LIB_SRC_DIR := ./src/socketlib
+LIB_SRCS := $(wildcard $(LIB_SRC_DIR)/*.c)
+LIB_OBJS := $(LIB_SRCS:.c=.o)
 
-# Task 4
-todo_api_0: 4-main.o shared.o
-	$(CC) $(CFLAGS) -o todo_api_0 4-main.o shared.o
+todo_api_0: todo_api_0.o $(LIB_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-4-main.o: 4-main.c socket.h
-	$(CC) $(CFLAGS) -c 4-main.c
+todo_api_0.o: todo_api_0.c
+	$(CC) $(COBJFLAGS) -I$(INC_PATH) -o $@ $<
 
-5-main.o: 5-main.c socket.h
-	$(CC) $(CFLAGS) -c 5-main.c
+todo_api_1: todo_api_1.o $(LIB_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-6-main.o: 6-main.c socket.h
-	$(CC) $(CFLAGS) -c 6-main.c
+todo_api_1.o: todo_api_1.c
+	$(CC) $(COBJFLAGS) -I$(INC_PATH) -o $@ $<
 
-shared.o: shared.c socket.h
-	$(CC) $(CFLAGS) -c shared.c
+todo_api_2: todo_api_2.o $(LIB_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-todo_api_1: 5-main.o shared.o
-	$(CC) $(CFLAGS) -o todo_api_1 5-main.o shared.o
+todo_api_2.o: todo_api_2.c
+	$(CC) $(COBJFLAGS) -I$(INC_PATH) -o $@ $<
 
-todo_api_2: 6-main.o shared.o
-	$(CC) $(CFLAGS) -o todo_api_2 6-main.o shared.o
-
-clean:
-	rm -f *.o task4 task5
-
-.PHONY: clean
+$(LIB_SRC_DIR)/%.o: $(LIB_SRC_DIR)/%.c
+	$(CC) $(COBJFLAGS) -I$(INC_PATH) -o $@ $<
