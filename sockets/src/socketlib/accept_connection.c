@@ -11,7 +11,7 @@ int accept_connection(int socketfd)
 
     inbound_addrlength = sizeof(struct sockaddr);
     clientfd = accept(socketfd, inbound_address, &inbound_addrlength);
-    inbound_address_in = (struct sockaddr_in *)inbound_address;
+    inbound_address_in = (struct sockaddr_in *)&inbound_address;
     printf("Client connected: %s\n", inet_ntoa(inbound_address_in->sin_addr));
     fflush(stdout);
 
