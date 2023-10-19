@@ -31,7 +31,7 @@ int main(void)
 	int socketfd, clientfd, backlog = 8;
     char *msgrcv;
 
-	socketfd = initiate_socket(AF_INET, SOCK_STREAM, INADDR_ANY, 8080);
+	socketfd = initiate_socket();
 	printf("Server listening on port 8080\n");
 	while (listen(socketfd, backlog) == 0)
 	{

@@ -14,7 +14,7 @@
 #define MSG_BUFF_SIZE 4096
 
 int accept_connection(int socketfd);
-int initiate_socket(int family, int type, int ip, int port);
+int initiate_socket();
 char *request_received(int clientfd);
 void requst_breakdown(void *message_received);
 

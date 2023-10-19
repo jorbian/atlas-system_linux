@@ -1,8 +1,10 @@
 #include "socketlib.h"
 
-char * request_received(int clientfd)
+char *request_received(int clientfd)
 {
-    char message_received[4096], message_sent[4096], *msgrcv;
+    char message_received[MSG_BUFF_SIZE], message_sent[MSG_BUFF_SIZE];
+    char *msgrcv;
+
     ssize_t byte_received;
     size_t message_size = sizeof(message_sent);
 
@@ -19,4 +21,3 @@ char * request_received(int clientfd)
     }
     return (msgrcv);
 }
-
