@@ -9,35 +9,55 @@
 #define PORT 12345
 #define MAX_CONNECTIONS 5
 
-static int server_socket;
-static saddr_t server_addr;
-static socklen_t addr_len = sizeof(server_addr);
+/**
+ * fill_in_address - does exactly what it says on the tin
+ * @address: pointer to the socket address struct
+ * @family: asd fasdf
+ * @ip: the ip address we're specifying
+ * @port: the port we're suposed to be listening to
+ *
+*/
+static void fill_in_address(saddr_t *address, int family, int ip, int port)
+{
+	address->sin_family = family;
+	address->sin_addr.s_addr = ip;
+	address->sin_port = htons(port);
+}
 
 /**
- * setup_socket - procedure for setting up a socket we won't listen to
- * @port: number of the port being listened to
+ * initiate_socket - initiate socket and bind it to an address
+ * @family: asdf
+ * @type: asdf
+ * @ip: asdf
+ * @port: asdf
  *
- * Return: Whether or not there was a problem.
+ * Return: file descriptor to the socket (or -1)
 */
-static int setup_socket(int port)
+int initiate_socket(int family, int type, int ip, int port)
 {
-	server_socket = socket(AF_INET, SOCK_STREAM, 0);
-	if (server_socket == -1)
-		return (EXIT_FAILURE);
+	int new_sock_fd;
 
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = INADDR_ANY;
-	server_addr.sin_port = htons(port);
+	saddr_t address;
 
-	if (bind(server_socket, (struct sockaddr *)&server_addr, addr_len) < 0)
-		return (EXIT_FAILURE);
+	new_sock_fd = socket(family, type, 0);
+	if (new_sock_fd == -1)
+		return (new_sock_fd);
 
-	if (listen(server_socket, MAX_CONNECTIONS) < 0)
-		return (EXIT_FAILURE);
+	fill_in_address(&address, family, ip, port);
 
-	printf("Server listening on port %d...\n", port);
+	if (
+		bind(
+			new_sock_fd,
+			(struct sockaddr *)&address,
+			sizeof(struct sockaddr_in)
+		) == -1
+	)
+		return (-1);
 
-	return (EXIT_SUCCESS);
+	if (listen(new_sock_fd, MAX_CONNECTIONS) == -1)
+		return (-1);
+
+	return (new_sock_fd);
 }
 
 /**
@@ -46,10 +66,17 @@ static int setup_socket(int port)
 */
 int main(void)
 {
-	setup_socket(PORT);
+	int sock_fd = initiate_socket(AF_INET, SOCK_STREAM, INADDR_ANY, PORT);
+
+	if (sock_fd == -1)
+		return (EXIT_FAILURE);
+
+	printf("Server listening on port %d...\n", PORT);
 
 	for (;;)
 		;
 
-	return (0);
+	close(sock_fd);
+
+	return (EXIT_SUCCESS);
 }
