@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 
@@ -17,47 +18,38 @@
  * @port: the port we're suposed to be listening to
  *
 */
-static void fill_in_address(saddr_t *address, int family, int ip, int port)
+static void fill_in_address(struct sockaddr_in *address, uint16_t port)
 {
-	address->sin_family = family;
-	address->sin_addr.s_addr = ip;
+	address->sin_family = AF_INET;
+	address->sin_addr.s_addr = INADDR_ANY;
 	address->sin_port = htons(port);
 }
 
+
 /**
- * initiate_socket - initiate socket and bind it to an address
- * @family: asdf
- * @type: asdf
- * @ip: asdf
- * @port: asdf
- *
- * Return: file descriptor to the socket (or -1)
+ * initiate_socket - initalizes and binds the server socket to port
+ * @fd: the file descriptor for the new socket
+ * @port: the port that it needs to start listening to
+ * 
+ * Return: whether or not it was sucessfully bound
 */
-int initiate_socket(int family, int type, int ip, int port)
+int8_t initiate_socket(int16_t *fd, int16_t port)
 {
-	int new_sock_fd;
+	struct sockaddr_in address;
 
-	saddr_t address;
-
-	new_sock_fd = socket(family, type, 0);
-	if (new_sock_fd == -1)
-		return (new_sock_fd);
-
-	fill_in_address(&address, family, ip, port);
-
-	if (
-		bind(
-			new_sock_fd,
-			(struct sockaddr *)&address,
-			sizeof(struct sockaddr_in)
-		) == -1
-	)
+	*fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (*fd == -1)
 		return (-1);
 
-	if (listen(new_sock_fd, MAX_CONNECTIONS) == -1)
-		return (-1);
+	fill_in_address(&address, port);
 
-	return (new_sock_fd);
+	bind(*fd, (struct sockaddr *)&address, sizeof(struct sockaddr_in));
+
+	listen(*fd, MAX_CONNECTIONS);
+
+	printf("Server listening on port %d...\n", PORT);
+
+	return (0);
 }
 
 /**
@@ -66,12 +58,9 @@ int initiate_socket(int family, int type, int ip, int port)
 */
 int main(void)
 {
-	int sock_fd = initiate_socket(AF_INET, SOCK_STREAM, INADDR_ANY, PORT);
+	int16_t sock_fd;
 
-	if (sock_fd == -1)
-		return (EXIT_FAILURE);
-
-	printf("Server listening on port %d...\n", PORT);
+	initiate_socket(&sock_fd, PORT);
 
 	for (;;)
 		;
