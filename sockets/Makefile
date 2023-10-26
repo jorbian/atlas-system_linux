@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu90 -ggdb3
+CFLAGS = -Wall -Werror -Wextra -pedantic
 
 todo_api_0: task4.o socketlib.o
 	$(CC) $(CFLAGS) -o todo_api_0 task4.o socketlib.o
