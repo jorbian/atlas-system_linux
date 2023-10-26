@@ -13,5 +13,4 @@ task4.o: task4.c socketlib.h
 	$(CC) $(CFLAGS) -c task4.c
 
 socketlib.o: socketlib.c socketlib.h
-	$(CC) $(CFLAGS) -c shared.c
-
+	$(CC) $(CFLAGS) -c socketlib.c
