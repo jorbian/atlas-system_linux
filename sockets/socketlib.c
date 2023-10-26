@@ -58,7 +58,7 @@ int8_t start_listening(int16_t *fd, int16_t port)
     if (listen(*fd, MAX_CONNECTIONS) == -1)
         return (-1);
 
-	printf("Server listening on port %d...\n", PORT);
+	printf("Server listening on port %d...\n", port);
 
     return (0);
 }
@@ -68,11 +68,12 @@ void accept_connection(int16_t *server, int16_t *client)
     struct sockaddr *inbound_address;
     struct sockaddr_in *inbound_address_in;
 
-    *client = accept(server, inbound_address, (socklen_t)sizeof(struct sockaddr));
+    *client = accept(*server, inbound_address, (socklen_t)sizeof(struct sockaddr));
 
     inbound_address_in = (struct sockaddr_in *)inbound_address;
 
     printf("Client connected: %s\n", inet_ntoa(inbound_address_in->sin_addr));
+
     fflush(stdout);
 }
 
