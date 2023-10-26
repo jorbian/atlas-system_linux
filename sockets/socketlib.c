@@ -11,7 +11,7 @@
 
 int16_t append(int32_t *list, int32_t item)
 {
-    int16_t max, current, length;
+	int16_t length = 0;
 
     int16_t *current_size = &GET_MAX_SIZE(list) + 1;
 

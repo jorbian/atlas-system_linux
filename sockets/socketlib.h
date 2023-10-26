@@ -42,4 +42,11 @@ enum fd_indecies
 
 typedef struct sockaddr_in saddr_t;
 
+char *request_received(int client);
+int8_t take_connection(int *fd, saddr_t *addr);
+int8_t bind_socket(int *fd, saddr_t *addr, int family, int ip, int port);
+int8_t create_socket(int *fd, int opt);
+void initalize_list(int32_t *list, int32_t max_size);
+int16_t append(int32_t *list, int32_t item);
+
 #endif

@@ -18,8 +18,8 @@ int main(void)
 
     while (1)
     {
-        take_connection(&fd, &address);
-        request_received(&fd[CLIENT])
+        take_connection((int * )&fd, &address);
+        request_received(fd[CLIENT]);
     }
 	return (0);
 }
