@@ -14,7 +14,7 @@ int main(void)
 
 	initiate_socket(&server_fd, PORT);
 
-	while (start_listening(server_fd, PORT) == 0)
+	while (start_listening(&server_fd, PORT) == 0)
 	{
 		
 		accept_connection(&server_fd, &client_fd);
