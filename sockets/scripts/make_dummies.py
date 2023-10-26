@@ -19,7 +19,7 @@ template_code = template_obj.read_text()
 start_num = int(template_obj.stem[-1])
 src_names = (
     f'{template_obj.stem[:-1]}{str(x)}'
-        for x in range(start_num, start_num + 5)
+        for x in range(start_num, start_num + 6)
 )
 task_data = dict(zip(src_names, EXECUTABLE_NAMES))
 
