@@ -58,7 +58,7 @@ static void bind_socket(int *fd, saddr_t *addr, int family, int ip, int port)
  * @addr: address server socket it bound to
  *
  */
-static void take_connection(int *fd, saddr_t *addr)
+static int8_t take_connection(int *fd, saddr_t *addr)
 {
 	char buffer[BUFF_SIZE] = {0};
 
@@ -74,17 +74,17 @@ static void take_connection(int *fd, saddr_t *addr)
 			(socklen_t *)&addrlen
 		);
 		if (fd[NEW_SOCKET] < 0)
-		{
-			perror("accept failed");
-			exit(EXIT_FAILURE);
-		}
+			return (-1);
+
 		printf("Client connected: %s\n", inet_ntoa(addr->sin_addr));
-		fd[CLIENT] = fd[NEW_SOCKET]; /** Receive data from the client */
+
+		fd[CLIENT] = fd[NEW_SOCKET];
 		bytes_read = read(fd[CLIENT], buffer, BUFF_SIZE);
 		if (bytes_read < 0)
-			exit(EXIT_FAILURE);
-		printf("Message received: \"%s\"\n", buffer); /** Print the message */
-		close(fd[NEW_SOCKET]); /** Close the connection */
+			return (-1);
+
+		printf("Message received: \"%s\"\n", buffer);
+		close(fd[NEW_SOCKET]);
 		close(fd[CLIENT]);
 		exit(EXIT_SUCCESS);
 	}
@@ -99,7 +99,7 @@ int main(void)
 	saddr_t address;
 
 	create_socket(&fd[SERVER], 1);
-	bind_socket(&fd[SERVER], &address, AF_INET, INADDR_ANY, DEFAULT_PORT);
+	bind_socket(&fd[SERVER], &address, AF_INET, INADDR_ANY, PORT);
 	take_connection(&fd[SERVER], &address);
 
 	return (0);
