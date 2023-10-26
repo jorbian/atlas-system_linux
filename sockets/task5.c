@@ -15,7 +15,7 @@ int break_print_request(int client_fd)
 	printf("Raw request: \"%s", buffer);
 
 	strtok(buffer, DELIMITER);
-    path = strtok(NULL, DELIMITER);
+	path = strtok(NULL, DELIMITER);
 	path = strtok_r(path, "?", &save1);
 	printf("\"\nPath: %s\n", path);
 
@@ -27,5 +27,5 @@ int break_print_request(int client_fd)
 		printf("Query: \"%s\" -> \"%s\"\n", key, value);
 		query = strtok_r(NULL, "&", &save1);
 	}
-	return(send_message(client_fd));
+	return (send_message(client_fd));
 }

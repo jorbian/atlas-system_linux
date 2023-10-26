@@ -25,5 +25,5 @@ int break_print_request(int client_fd)
     printf("Path: %s\n", path);
     printf("Version: %s\n", http_version);
 
-	return(send_message(client_fd));
+	return (send_message(client_fd));
 }

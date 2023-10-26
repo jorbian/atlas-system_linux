@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -14,73 +11,96 @@
 #define MAX_CONNECTIONS 5
 
 /**
- * setup_socket - procedure for setting up a socket we won't listen to
- * @port: number of the port being listened to
+ * fill_in_address - does exactly what it says on the tin
+ * @address: pointer to the socket address struct
+ * @port: the port we're suposed to be listening to
  *
- * Return: Whether or not there was a problem.
 */
-static int setup_socket(int port)
+static void fill_in_address(saddr_t *address, int port)
 {
-	server_socket = socket(AF_INET, SOCK_STREAM, 0);
-	if (server_socket == -1)
-		return (EXIT_FAILURE);
+	address->sin_family = AF_INET;
+	address->sin_addr.s_addr = INADDR_ANY;
+	address->sin_port = htons(port);
+}
 
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = INADDR_ANY;
-	server_addr.sin_port = htons(port);
+/**
+ * initiate_socket - initalizes and binds the server socket to port
+ * @port: the port that it needs to start listening to
+ *
+ * Return: whether or not it was sucessfully bound
+*/
+int16_t setup_socket(int port)
+{
+	int16_t socket_fd;
 
-	if (bind(server_socket, (struct sockaddr *)&server_addr, addr_len) < 0)
-		return (EXIT_FAILURE);
+	struct sockaddr_in address;
 
-	if (listen(server_socket, MAX_CONNECTIONS) < 0)
-		return (EXIT_FAILURE);
+	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (socket_fd == -1)
+		return (-1);
 
-	return (EXIT_SUCCESS);
+	fill_in_address(&address, port);
+
+	bind(socket_fd, (struct sockaddr *)&address, sizeof(struct sockaddr_in));
+
+	listen(socket_fd, MAX_CONNECTIONS);
+
+	printf("Server listening on port %d...\n", PORT);
+
+	return (socket_fd);
 }
 
 /**
  * take_request - processes whatever request there is...
+ * @socket_fd: file descriptor of the server socket
  *
  * Return: Whether or not there was a problem.
 */
-static int take_request(void)
+static int8_t take_request(int16_t *socket_fd)
 {
-	client = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
-	if (client < 0)
-		return (EXIT_FAILURE);
+	int16_t client_fd;
+	saddr_t client_addr;
 
+	unsigned int addr_len;
+
+	addr_len = sizeof(client_addr);
+
+	client_fd = accept(
+		*socket_fd,
+		(struct sockaddr *)&client_addr,
+		(socklen_t *)&addr_len
+	);
+	if (client_fd < 0)
+		return (-1);
+
+	printf("IT GOT HERE");
 	if (getpeername(
-			client,
+			client_fd,
 			(struct sockaddr *)&client_addr,
 			(socklen_t *)&addr_len
 		) < 0)
-		return (EXIT_FAILURE);
+		return (-1);
 
 	printf("Client connected: %s\n", inet_ntoa(client_addr.sin_addr));
 
-	close(client);
+	close(client_fd);
 
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 /**
  * main - Entry point the server program
- * Return: EXIT_SUCCESS or EXIT_FAILURE
+ *
+ * Return: EXIT_SUCCESS or -1
 */
 int main(void)
 {
-	int error_event;
-
-	error_event = setup_socket(DEFAULT_PORT);
-	if (error_event)
-		exit(EXIT_FAILURE);
-
-	printf("Server listening on port %d...\n", ntohs(server_addr.sin_port));
+	int16_t socket_fd = setup_socket(PORT);
 
 	while (1)
 	{
-		take_request();
+		take_request(&socket_fd);
 		break;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

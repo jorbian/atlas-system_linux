@@ -1,12 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
+
 #include "socketlib.h"
 
 #define PORT 12345
@@ -47,7 +42,7 @@ int8_t initiate_socket(int *fd, int port)
 
 	listen(*fd, MAX_CONNECTIONS);
 
-	printf("Server listening on port %d...\n", DEFAULT_PORT);
+	printf("Server listening on port %d...\n", PORT);
 
 	return (0);
 }
@@ -60,12 +55,11 @@ int main(void)
 {
 	int sock_fd;
 
-	initiate_socket(&sock_fd, DEFAULT_PORT);
+	initiate_socket(&sock_fd, PORT);
 
 	for (;;)
 		;
-
 	close(sock_fd);
 
-	return (EXIT_SUCCESS);
+	return (0);
 }
