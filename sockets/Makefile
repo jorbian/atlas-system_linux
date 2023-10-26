@@ -10,7 +10,7 @@ todo_api_0: task4.o shared.o
 	$(CC) $(CFLAGS) -o todo_api_0 task4.o socketlib.o
 
 task4.o: task4.c socketlib.h
-	$(CC) $(CFLAGS) -c 4-main.c
+	$(CC) $(CFLAGS) -c task4.c
 
 socketlib.o: socketlib.c socketlib.h
 	$(CC) $(CFLAGS) -c shared.c
