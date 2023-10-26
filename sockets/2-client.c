@@ -10,11 +10,6 @@
 
 #include "socketlib.h"
 
-enum fd_indecies
-{
-	SERVER, NEW_SOCKET, CLIENT
-};
-
 /**
  * struct connection_s - struct that represents a network connection
  * @sock_fd: file descriptor for the connection socket
