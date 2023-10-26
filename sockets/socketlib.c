@@ -14,7 +14,7 @@ int spinup_server(void)
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_fd < 0)
-        return (-1);
+		return (-1);
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(DEFAULT_PORT);
@@ -46,11 +46,11 @@ int send_message(int client_fd)
 int8_t accept_connection(int server_fd, saddr_t addr)
 {
 	int client_fd;
-    int addrlen = sizeof(addr);
+	int addrlen = sizeof(addr);
 
 	client_fd = accept(
-        server_fd, (struct sockaddr *)&addr, (socklen_t*)&addrlen
-    );
+		server_fd, (struct sockaddr *)&addr, (socklen_t *)&addrlen
+	);
 	if (client_fd < 0)
 		return(-1);
 

@@ -76,7 +76,6 @@ static void prep_connection(connect_t *connection, char *host, int port)
 
 	connection->server_addr.sin_family = AF_INET;
 	connection->server_addr.sin_port = htons(port);
-
 	connection->host_addr = gethostbyname(host);
 
 	inet_pton(

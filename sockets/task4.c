@@ -17,13 +17,13 @@ int break_print_request(int client_fd)
 	printf("Raw request: \"%s", buffer);
 
 	method = strtok(buffer, " ");
-    path = strtok(NULL, " ");
-    http_version = strtok(NULL, "\r\n");
+	path = strtok(NULL, " ");
+	http_version = strtok(NULL, "\r\n");
 
 	printf("\"\n");
 	printf("Method: %s\n", method);
-    printf("Path: %s\n", path);
-    printf("Version: %s\n", http_version);
+	printf("Path: %s\n", path);
+	printf("Version: %s\n", http_version);
 
 	return (send_message(client_fd));
 }

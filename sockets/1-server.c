@@ -24,7 +24,7 @@ static void fill_in_address(saddr_t *address, int port)
 }
 
 /**
- * initiate_socket - initalizes and binds the server socket to port
+ * setup_socket - initalizes and binds the server socket to port
  * @port: the port that it needs to start listening to
  *
  * Return: whether or not it was sucessfully bound
