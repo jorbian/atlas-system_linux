@@ -29,6 +29,8 @@ static int8_t create_socket(int *fd, int opt)
 		*fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))
 	)
 		return (-1);
+
+	return (0);
 }
 
 /**
