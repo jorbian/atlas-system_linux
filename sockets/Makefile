@@ -31,8 +31,8 @@ todo_api_4: task8.o socketlib.o
 task8.o: task8.c socketlib.h
 	$(CC) $(CFLAGS) -c task8.c
 
-todo_api_5: task9.o socketlib.o
-	$(CC) $(CFLAGS) -o todo_api_5 task9.o socketlib.o
+todo_api_5: task8.o socketlib.o
+	$(CC) $(CFLAGS) -o todo_api_5 task8.o socketlib.o
 
-task9.o: task9.c socketlib.h
-	$(CC) $(CFLAGS) -c task9.c
+task9.o: task8.c socketlib.h
+	$(CC) $(CFLAGS) -c task8.c

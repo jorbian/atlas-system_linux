@@ -1,14 +1,22 @@
 #include "socketlib.h"
 
-#ifndef PORT
-    #define PORT 8080
-#endif
-
 /**
  * main - sets up a listening socket and accepts connections
- * Return: EXIT_SUCESS (i.e. 0)
+ * Return: 0 on success
 */
 int main(void)
 {
+	int socketfd, backlog = 8;
+    client_info client;
+
+	socketfd = initiate_socket();
+
+	while (listen(socketfd, backlog) == 0)
+	{
+		
+		client = accept_connection_api(socketfd);
+		request_received_api(&client);
+    
+	}
 	return (0);
 }
