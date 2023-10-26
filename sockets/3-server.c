@@ -7,7 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "sockets.h"
+#include "socketlib.h"
 
 #define PORT 12345
 #define BUFF_SIZE 1024
@@ -99,7 +99,7 @@ int main(void)
 	saddr_t address;
 
 	create_socket(&fd[SERVER], 1);
-	bind_socket(&fd[SERVER], &address, AF_INET, INADDR_ANY, PORT);
+	bind_socket(&fd[SERVER], &address, AF_INET, INADDR_ANY, DEFAULT_PORT);
 	take_connection(&fd[SERVER], &address);
 
 	return (0);

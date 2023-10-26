@@ -12,9 +12,9 @@ int main(void)
 {
 	int server_fd, client_fd;
 
-	initiate_socket(&server_fd, PORT);
+	initiate_socket(&server_fd, DEFAULT_PORT);
 
-	while (start_listening(&server_fd, PORT) == 0)
+	while (start_listening(&server_fd, DEFAULT_PORT) == 0)
 	{
 		
 		accept_connection(&server_fd, &client_fd);

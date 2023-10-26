@@ -7,8 +7,6 @@
 
 #include "socketlib.h"
 
-#define PORT 8080
-
 int spinup_server(void)
 {
 	int server_fd;
@@ -19,7 +17,7 @@ int spinup_server(void)
         return (-1);
 
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(PORT);
+	addr.sin_port = htons(DEFAULT_PORT);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	if (bind(server_fd, (struct sockaddr *)&addr, sizeof(addr))< 0)

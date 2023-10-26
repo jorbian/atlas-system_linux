@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#define DEFAULT_PORT 8080
 #define DEFAULT_BUFF_SIZE 1024
 #define DEFAULT_MESSAGE "HTTP/1.1 200 OK\n"
 

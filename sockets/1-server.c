@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netdb.h>
 
-#include "sockets.h"
+#include "socketlib.h"
 
 #define PORT 12345
 #define MAX_CONNECTIONS 5
-
-static int server_socket, client;
-static saddr_t server_addr, client_addr;
-static socklen_t addr_len = sizeof(server_addr);
 
 /**
  * setup_socket - procedure for setting up a socket we won't listen to
@@ -71,7 +71,7 @@ int main(void)
 {
 	int error_event;
 
-	error_event = setup_socket(PORT);
+	error_event = setup_socket(DEFAULT_PORT);
 	if (error_event)
 		exit(EXIT_FAILURE);
 

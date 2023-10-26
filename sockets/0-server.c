@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <arpa/inet.h>
-
+#include <netinet/in.h>
+#include <netdb.h>
 #include "socketlib.h"
 
 #define PORT 12345
@@ -16,7 +18,7 @@
  * @port: the port we're suposed to be listening to
  *
 */
-static void fill_in_address(struct sockaddr_in *address, uint port)
+static void fill_in_address(struct sockaddr_in *address, int port)
 {
 	address->sin_family = AF_INET;
 	address->sin_addr.s_addr = INADDR_ANY;
@@ -45,7 +47,7 @@ int8_t initiate_socket(int *fd, int port)
 
 	listen(*fd, MAX_CONNECTIONS);
 
-	printf("Server listening on port %d...\n", PORT);
+	printf("Server listening on port %d...\n", DEFAULT_PORT);
 
 	return (0);
 }
@@ -58,7 +60,7 @@ int main(void)
 {
 	int sock_fd;
 
-	initiate_socket(&sock_fd, PORT);
+	initiate_socket(&sock_fd, DEFAULT_PORT);
 
 	for (;;)
 		;
