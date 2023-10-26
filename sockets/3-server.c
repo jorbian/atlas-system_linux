@@ -16,17 +16,19 @@
  * create_socket - create the listening socket for the sever
  * @fd: file descriptor to use for the new socket
  * @opt: which options need to be used.
+ *
+ * Return: Whether or not the scoket was created/
 */
-static void create_socket(int *fd, int opt)
+static int8_t create_socket(int *fd, int opt)
 {
 	*fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (*fd == 0)
-		exit(EXIT_FAILURE);
+		return (-1);
 
 	if (setsockopt(
 		*fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))
 	)
-		exit(EXIT_FAILURE);
+		return (-1);
 }
 
 /**
@@ -36,18 +38,20 @@ static void create_socket(int *fd, int opt)
  * @family: value corresponding to address family of socket
  * @ip: value corresponding to the address we are listening on
  * @port: which port needs to be listend on.
+ *
+ * Return: Whether or not the socked was bound.
 */
-static void bind_socket(int *fd, saddr_t *addr, int family, int ip, int port)
+static int8_t bind_socket(int *fd, saddr_t *addr, int family, int ip, int port)
 {
 	addr->sin_family = family;
 	addr->sin_addr.s_addr = ip;
 	addr->sin_port = htons(port);
 
 	if (bind(*fd, (struct sockaddr *)addr, sizeof(*addr)) < 0)
-		exit(EXIT_FAILURE);
+		return (-1);
 
 	if (listen(*fd, 3) < 0)
-		exit(EXIT_FAILURE);
+		return (-1);
 
 	printf("Server listening on port %d\n", port);
 }
@@ -57,6 +61,7 @@ static void bind_socket(int *fd, saddr_t *addr, int family, int ip, int port)
  * @fd: file descriptor array
  * @addr: address server socket it bound to
  *
+ * Return: Whether or not there was a problem.
  */
 static int8_t take_connection(int *fd, saddr_t *addr)
 {
