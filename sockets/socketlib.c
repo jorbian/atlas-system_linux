@@ -7,7 +7,10 @@
 
 #include "socketlib.h"
 
-#define PORT 12345
+#ifndef PORT
+    #define PORT 8080
+#endif
+
 #define MAX_CONNECTIONS 5
 
 /**
