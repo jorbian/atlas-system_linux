@@ -45,24 +45,6 @@ int16_t send_message(int16_t client_fd)
 	return (0);
 }
 
-int16_t break_print_request(int client_fd)
-{
-	char buffer[1024] = {0};
-	char *method, *path, *http_version;
-
-	read(client_fd, buffer, 1024);
-	printf("Raw request: \"%s", buffer);
-
-	method = strtok(buffer, " ");
-    path = strtok(NULL, " ");
-    http_version = strtok(NULL, "\r\n");
-
-	printf(
-        "\"\nMethod: %s\nPath: %s\nVersion: %s\n", method, path, http_version
-    );
-	return(send_message(client_fd));
-}
-
 int8_t accept_connection(int16_t server_fd, saddr_t addr)
 {
 	int16_t client_fd;
