@@ -65,8 +65,8 @@ int8_t start_listening(int16_t *fd, int16_t port)
 
 void accept_connection(int16_t *server, int16_t *client)
 {
-    struct sockaddr *inbound_address;
-    struct sockaddr_in *inbound_address_in;
+    struct sockaddr *inbound_address = NULL;
+    struct sockaddr_in *inbound_address_in = NULL;
 
     socklen_t addr_len = sizeof(struct sockaddr);
 
