@@ -55,9 +55,10 @@ int8_t initiate_socket(int16_t *fd, int16_t port)
 
 int8_t start_listening(int16_t *fd, int16_t port)
 {
-    if (listen(*fd, MAX_CONNECTIONS) == -1)
+    if ((listen(*fd, MAX_CONNECTIONS) == -1))
+    {
         return (-1);
-
+    }
 	printf("Server listening on port %d...\n", port);
 
     return (0);
