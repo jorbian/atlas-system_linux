@@ -54,6 +54,8 @@ static int8_t bind_socket(int *fd, saddr_t *addr, int family, int ip, int port)
 		return (-1);
 
 	printf("Server listening on port %d\n", port);
+
+	return (0);
 }
 
 /**
@@ -93,6 +95,7 @@ static int8_t take_connection(int *fd, saddr_t *addr)
 		close(fd[CLIENT]);
 		exit(EXIT_SUCCESS);
 	}
+	return (0);
 }
 /**
  * main - entry point for socket listener
