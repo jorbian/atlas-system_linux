@@ -8,11 +8,13 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#define DEFAULT_MESSAGE "HTTP/1.1 200 OK\n"
+
 typedef struct sockaddr_in saddr_t;
 
-int8_t initiate_socket(int16_t *fd, int16_t port);
-int8_t start_listening(int16_t *fd, int16_t port);
-void accept_connection(int16_t *server, int16_t *client);
-void request_received(int16_t *client);
+int16_t spinup_server(void);
+int8_t accept_connection(int16_t server_fd, saddr_t addr);
+int16_t send_message(int16_t client_fd);
+int16_t break_print_request(int client_fd);
 
 #endif

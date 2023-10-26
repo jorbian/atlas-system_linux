@@ -7,93 +7,75 @@
 
 #include "socketlib.h"
 
-#ifndef PORT
-    #define PORT 8080
-#endif
+#define PORT 8080
 
-#define MAX_CONNECTIONS 5
-
-/**
- * fill_in_address - does exactly what it says on the tin
- * @address: pointer to the socket address struct
- * @port: the port we're suposed to be listening to
- *
-*/
-static void fill_in_address(struct sockaddr_in *address, uint16_t port)
+int16_t spinup_server(void)
 {
-	address->sin_family = AF_INET;
-	address->sin_addr.s_addr = INADDR_ANY;
-	address->sin_port = htons(port);
+	int server_fd;
+	saddr_t addr;
+
+	server_fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (server_fd < 0)
+        return (-1);
+
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(PORT);
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+	if (bind(server_fd, (struct sockaddr *)&addr, sizeof(addr))< 0)
+		return(-1);
+
+	if (listen(server_fd, 8) < 0)
+		return(-1);
+
+	printf("Server listening on port %d\n", ntohs(addr.sin_port));
+
+	while (1)
+		accept_connection(server_fd, addr);
+	
+	close(server_fd);
 }
 
-/**
- * initiate_socket - initalizes and binds the server socket to port
- * @fd: the file descriptor for the new socket
- * @port: the port that it needs to start listening to
- * 
- * Return: whether or not it was sucessfully bound
-*/
-int8_t initiate_socket(int16_t *fd, int16_t port)
+int16_t send_message(int16_t client_fd)
 {
-	struct sockaddr_in address;
+	char *message = DEFAULT_MESSAGE;
 
-	*fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (*fd == -1)
-		return (-1);
-
-	fill_in_address(&address, port);
-
-	if (bind(
-            *fd,
-            (struct sockaddr *)&address,
-            sizeof(struct sockaddr_in)
-        ) == -1)
-        return (-1);
+	send(client_fd, message, strlen(message), 0);
 
 	return (0);
 }
 
-int8_t start_listening(int16_t *fd, int16_t port)
+int16_t break_print_request(int client_fd)
 {
-    if ((listen(*fd, MAX_CONNECTIONS) == -1))
-    {
-        return (-1);
-    }
-	printf("Server listening on port %d...\n", port);
+	char buffer[1024] = {0};
+	char *method, *path, *http_version;
 
-    return (0);
+	read(client_fd, buffer, 1024);
+	printf("Raw request: \"%s", buffer);
+
+	method = strtok(buffer, " ");
+    path = strtok(NULL, " ");
+    http_version = strtok(NULL, "\r\n");
+
+	printf(
+        "\"\nMethod: %s\nPath: %s\nVersion: %s\n", method, path, http_version
+    );
+	return(send_message(client_fd));
 }
 
-void accept_connection(int16_t *server, int16_t *client)
+int8_t accept_connection(int16_t server_fd, saddr_t addr)
 {
-    struct sockaddr *inbound_address = NULL;
-    struct sockaddr_in *inbound_address_in = NULL;
+	int16_t client_fd;
+    int16_t addrlen = sizeof(addr);
 
-    socklen_t addr_len = sizeof(struct sockaddr);
+	client_fd = accept(
+        server_fd, (struct sockaddr *)&addr, (socklen_t*)&addrlen
+    );
+	if (client_fd < 0)
+		return(-1);
 
-    *client = accept(*server, inbound_address, &addr_len);
-
-    inbound_address_in = (struct sockaddr_in *)inbound_address;
-
-    printf("Client connected: %s\n", inet_ntoa(inbound_address_in->sin_addr));
-
-    fflush(stdout);
-}
-
-void request_received(int16_t *client)
-{
-    char message_received[8162], message_sent[8162];
-    ssize_t byte_received;
-    int16_t message_size = sizeof(message_sent);
-
-    byte_received = recv(*client, message_received, sizeof(message_received), 0);
-	if (byte_received > 0)
-	{
-		printf("Raw request: \"%s\"\n", message_received);
-        snprintf(message_sent, sizeof(message_sent),
-             "HTTP/1.1 200 OK\r\n");
-        send(*client, message_sent, message_size, 0);
-        close(*client);
-        fflush(stdout);
-    }
+	printf("Client connected: %s\n", inet_ntoa(addr.sin_addr));
+	break_print_request(client_fd);
+	close(client_fd);
+	return (-1);
 }
