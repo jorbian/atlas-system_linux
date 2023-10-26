@@ -68,7 +68,9 @@ void accept_connection(int16_t *server, int16_t *client)
     struct sockaddr *inbound_address;
     struct sockaddr_in *inbound_address_in;
 
-    *client = accept(*server, inbound_address, (socklen_t)sizeof(struct sockaddr));
+    socklen_t addr_len = sizeof(struct sockaddr);
+
+    *client = accept(*server, inbound_address, &addr_len);
 
     inbound_address_in = (struct sockaddr_in *)inbound_address;
 
