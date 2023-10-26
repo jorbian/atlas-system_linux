@@ -5,7 +5,7 @@ int main(void)
 	return (spinup_server());
 }
 
-int16_t break_print_request(int16_t client_fd)
+int break_print_request(int client_fd)
 {
 	char buffer[DEFAULT_BUFF_SIZE] = {0};
 	char *method, *path, *http_version;

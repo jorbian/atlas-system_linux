@@ -16,7 +16,7 @@
  * @port: the port we're suposed to be listening to
  *
 */
-static void fill_in_address(struct sockaddr_in *address, uint16_t port)
+static void fill_in_address(struct sockaddr_in *address, uint port)
 {
 	address->sin_family = AF_INET;
 	address->sin_addr.s_addr = INADDR_ANY;
@@ -31,7 +31,7 @@ static void fill_in_address(struct sockaddr_in *address, uint16_t port)
  *
  * Return: whether or not it was sucessfully bound
 */
-int8_t initiate_socket(int16_t *fd, int16_t port)
+int8_t initiate_socket(int *fd, int port)
 {
 	struct sockaddr_in address;
 
@@ -56,7 +56,7 @@ int8_t initiate_socket(int16_t *fd, int16_t port)
 */
 int main(void)
 {
-	int16_t sock_fd;
+	int sock_fd;
 
 	initiate_socket(&sock_fd, PORT);
 

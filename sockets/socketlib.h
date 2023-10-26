@@ -13,9 +13,9 @@
 
 typedef struct sockaddr_in saddr_t;
 
-int16_t spinup_server(void);
-int8_t accept_connection(int16_t server_fd, saddr_t addr);
-int16_t send_message(int16_t client_fd);
-int16_t break_print_request(int16_t client_fd);
+int spinup_server(void);
+int8_t accept_connection(int server_fd, saddr_t addr);
+int send_message(int client_fd);
+int break_print_request(int client_fd);
 
 #endif

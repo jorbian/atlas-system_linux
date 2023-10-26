@@ -10,7 +10,7 @@
 */
 int main(void)
 {
-	int16_t server_fd, client_fd;
+	int server_fd, client_fd;
 
 	initiate_socket(&server_fd, PORT);
 

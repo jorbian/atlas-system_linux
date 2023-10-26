@@ -9,7 +9,7 @@
 
 #define PORT 8080
 
-int16_t spinup_server(void)
+int spinup_server(void)
 {
 	int server_fd;
 	saddr_t addr;
@@ -36,7 +36,7 @@ int16_t spinup_server(void)
 	close(server_fd);
 }
 
-int16_t send_message(int16_t client_fd)
+int send_message(int client_fd)
 {
 	char *message = DEFAULT_MESSAGE;
 
@@ -45,10 +45,10 @@ int16_t send_message(int16_t client_fd)
 	return (0);
 }
 
-int8_t accept_connection(int16_t server_fd, saddr_t addr)
+int8_t accept_connection(int server_fd, saddr_t addr)
 {
-	int16_t client_fd;
-    int16_t addrlen = sizeof(addr);
+	int client_fd;
+    int addrlen = sizeof(addr);
 
 	client_fd = accept(
         server_fd, (struct sockaddr *)&addr, (socklen_t*)&addrlen
