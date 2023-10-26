@@ -22,6 +22,11 @@ typedef struct connection_s
 	struct hostent *host_addr;
 } connect_t;
 
+enum fd_indecies
+{
+	SERVER, NEW_SOCKET, CLIENT
+};
+
 typedef struct sockaddr_in saddr_t;
 
 int spinup_server(void);
