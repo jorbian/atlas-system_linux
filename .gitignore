@@ -1,48 +1,11 @@
 # BASED ON THIS TEMPLATE:
 # https://github.com/github/gitignore/blob/main/C.gitignore
 
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.la
-*.lo
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
 **/_*/
 **/*.pl
 **/*.lua
 **/.vscode/
-**/test/
-#**/*-main.c
+**/test/*
+**/garb/*
+**/*main*.c
 **/_putchar.c
