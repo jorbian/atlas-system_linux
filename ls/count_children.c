@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define MAX_PATH_LEN 1025
-#define FOLDER_NAME "/home/boller/code/atlas-system_linux/ls"
+#define FOLDER_NAME "/home/boller/code/holbertonschool-system_linux"
 
 static char **allocate_buffer(uint64_t size)
 {
@@ -20,12 +20,14 @@ static char **allocate_buffer(uint64_t size)
         for (i = 0; i < size; i++)
             new_buffer[i] = (char *)malloc(MAX_PATH_LEN);
 
+    return (new_buffer);
 }
 
 static uint64_t count_items(const char *folder)
 {
     DIR *dir;
     struct dirent *ent;
+
     int count = 0;
 
     if ((dir = opendir(folder)) != NULL)
@@ -36,18 +38,15 @@ static uint64_t count_items(const char *folder)
 
     return (count);
 }
+
 int main() {
     DIR *dir;
     struct dirent *ent;
 
     int count = count_items(FOLDER_NAME);
+    char **fileNames = allocate_buffer(count);
 
     dir = opendir(FOLDER_NAME);
-
-    char **fileNames = (char **)malloc(count * sizeof(char *));
-    for (int i = 0; i < count; i++) {
-        fileNames[i] = (char *)malloc(MAX_PATH_LEN); // Adjust MAX_PATH accordingly
-    }
 
     int index = 0;
     while ((ent = readdir(dir)) != NULL) {
@@ -55,19 +54,13 @@ int main() {
         index++;
     }
 
-        // Close the directory
-        closedir(dir);
+    closedir(dir);
 
-        // Now fileNames array contains the names of all items in the folder
-
-        // Use fileNames array as needed
-
-        // Don't forget to free the allocated memory
-        for (int i = 0; i < count; i++) {
-            printf("%s\n", fileNames[i]);
-            free(fileNames[i]);
+    for (int i = 0; i < count; i++) {
+        printf("%s\n", fileNames[i]);
+        free(fileNames[i]);
         }
-        free(fileNames);
+    free(fileNames);
 
     return 0;
 }
