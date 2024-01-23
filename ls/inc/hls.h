@@ -43,6 +43,7 @@ typedef struct ls_s
 #define SET_BIT(bit, value) ((1 << bit) | value)
 
 void initalize_context(ls_t *context, int argc, char **argv);
+void get_child_items(ls_t *context);
 void throw_error(ls_t *context);
 
 #endif

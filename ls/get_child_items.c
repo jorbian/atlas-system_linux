@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "./inc/hls.h"
+#include "./inc/ZZstring.h"
 
 /**
  * allocate_buffer - allocate a storage buffer for child item names
@@ -11,9 +12,9 @@
  *
  * Return: A pointer to the newly allocated double pointer.
 */
-static char **allocate_buffer(uint64_t size)
+static char **allocate_buffer(uint32_t size)
 {
-	uint64_t i;
+	uint32_t i;
 
 	char **new_buffer;
 
@@ -57,23 +58,49 @@ static uint64_t count_items(const char *folder)
 
 /**
  * fill_name_buffer - traverse the given folder and list item names
- * @buff: the buffer to stor the names as strings
- * @size: how big the buffer is supposed to be
+ * @context: pointer to the ls_t context struct
 */
-static void fill_name_buffer(char **buff, uint64_t size)
+static void fill_name_buffer(ls_t *context)
 {
 	DIR *dir;
+
 	struct dirent *ent;
 
 	int index = 0;
 
-	dir = opendir(TEST_FOLER_NAME);
+	dir = opendir(context->folder);
 
 	while ((ent = readdir(dir)) != NULL)
 	{
-		snprintf(buff[index], MAX_PATH_LEN, "%s", ent->d_name);
+		ZZstrncpy(
+			context->child_item_names[index],
+			ent->d_name,
+			MAX_PATH_LEN
+		);
 		index++;
 	}
 	closedir(dir);
 }
 
+/**
+ * get_child_items - initally generate list of folder's child items
+ * @context: pointer to the ls_t context struct
+ *
+*/
+void get_child_items(ls_t *context)
+{
+	uint32_t *needed_buffer = &(context->num_children);
+	uint32_t *error = &(context->error_info);
+
+	*needed_buffer = count_items(context->folder);
+
+	context->child_item_names = allocate_buffer(*needed_buffer);
+
+	if (!context->child_item_names)
+	{
+		*error = SET_BIT(MALLOC_FAIL, *error);
+		throw_error(context);
+	}
+
+	fill_name_buffer(context);
+}

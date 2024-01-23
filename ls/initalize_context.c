@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 
 #include "./inc/hls.h"
+#include "./inc/ZZstring.h"
 
 /**
  * interpret_flags - interpret generated flag string
@@ -19,8 +20,7 @@ static void interpret_flags(ls_t *context, char *flags)
 	uint32_t *error = &(context->error_info);
 
 	if (flags != NULL)
-		while (*flags)
-		{
+		do {
 			index = (char)index_of(glyphs, *flags);
 			if (index != -1)
 				*token = SET_BIT(index, *token);
@@ -31,8 +31,7 @@ static void interpret_flags(ls_t *context, char *flags)
 				context->folder[1] = '\0';
 				throw_error(context);
 			}
-			*(flags++);
-		}
+		} while (*(flags++));
 }
 
 /**
@@ -106,4 +105,5 @@ void initalize_context(ls_t *context, int argc, char **argv)
 	else
 		ZZstrncpy(context->folder, DEFAULT_OPTION, MAX_PATH_LEN);
 
+	test_folder_path(context);
 }
