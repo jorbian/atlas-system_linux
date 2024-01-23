@@ -29,7 +29,7 @@ static void interpret_flags(ls_t *context, char *flags)
 				*error = SET_BIT(1, *error);
 				context->folder[0] = *flags;
 				context->folder[1] = '\0';
-				break;
+				throw_error(context);
 			}
 			*(flags++);
 		}
@@ -90,7 +90,7 @@ static void test_folder_path(ls_t *context)
 */
 void initalize_context(ls_t *context, int argc, char **argv)
 {
-	char flag_buff[255];
+	char flag_buff[DEFAULT_BUFF_SIZE];
 
 	context->flag_token = 0;
 	context->error_info = 0;
