@@ -3,7 +3,7 @@
 #include <dirent.h>
 #include <stdint.h>
 
-#include "hls.h"
+#include "./inc/hls.h"
 
 /**
  * allocate_buffer - allocate a storage buffer for child item names
@@ -67,7 +67,7 @@ static void fill_name_buffer(char **buff, uint64_t size)
 
 	int index = 0;
 
-	dir = opendir(FOLDER_NAME);
+	dir = opendir(TEST_FOLER_NAME);
 
 	while ((ent = readdir(dir)) != NULL)
 	{

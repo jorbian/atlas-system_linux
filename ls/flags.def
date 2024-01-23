@@ -1,5 +1,0 @@
-FLAG(ALMOST_ALL, 'A')
-FLAG(ALL, 'a')
-FLAG(ONE, '1')
-FLAG(LONG, 'l')
-#undef FLAG

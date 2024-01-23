@@ -4,7 +4,8 @@
 #include <stdint.h>
 
 #define MAX_PATH_LEN 1025
-#define FOLDER_NAME "/home/boller/code/holbertonschool-system_linux"
+#define DEFAULT_OPTION "."
+#define TEST_FOLER_NAME "/home/boller/code/holbertonschool-system_linux"
 
 /**
  * struct ls_s - context struct for execution of hls
@@ -18,16 +19,12 @@ typedef struct ls_s
 	char folder[MAX_PATH_LEN];
 	char **child_item_names;
 	uint32_t num_children;
+	uint32_t flag_token;
 	uint32_t non_directory;
 	uint32_t error_info;
 } ls_t;
 
-const char flag_glyphs[] = {
-	#define GLYPHS(a, b) b,
-		#include "flags.def"
-	#undef GLYPHS
-};
-
-#define SET_FLAG(bit, token) ((1 << bit) | token)
+#define FLAG_GLYPHS "Aa1l"
+#define SET_BIT(bit, value) ((1 << bit) | value)
 
 #endif
