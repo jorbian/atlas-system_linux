@@ -96,6 +96,8 @@ void initalize_context(ls_t *context, int argc, char **argv)
 	context->error_info = 0;
 	context->non_directory = 0;
 
+	ZZstrncpy(context->app_name, argv[0], DEFAULT_BUFF_SIZE);
+
 	if (argc > 1)
 	{
 		find_flags(context, flag_buff, (char **)&argv[1]);

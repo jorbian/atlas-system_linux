@@ -1,0 +1,5 @@
+ERROR_TYPE(UNKNOWN, "%s: UNKNOWN ERROR\n", 1)
+ERROR_TYPE(BAD_OPTION, "%s: invalid option -- '%s'\n", 2)
+ERROR_TYPE(CANT_ACCESS, "%s: cannot access '%s': %s\n", 3)
+ERROR_TYPE(CANT_OPEN_DIR, "%s: cannot open directory '%s': %s", 3)
+#undef ERROR_TYPE

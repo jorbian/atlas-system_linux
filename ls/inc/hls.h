@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+#define DEFAULT_BUFF_SIZE 127
 #define MAX_PATH_LEN 1025
 #define DEFAULT_OPTION "."
 #define TEST_FOLER_NAME "/home/boller/code/holbertonschool-system_linux"
@@ -16,6 +17,7 @@
 */
 typedef struct ls_s
 {
+	char app_name[DEFAULT_BUFF_SIZE];
 	char folder[MAX_PATH_LEN];
 	char **child_item_names;
 	uint32_t num_children;
@@ -26,5 +28,7 @@ typedef struct ls_s
 
 #define FLAG_GLYPHS "Aa1l"
 #define SET_BIT(bit, value) ((1 << bit) | value)
+
+void initalize_context(ls_t *context, int argc, char **argv);
 
 #endif

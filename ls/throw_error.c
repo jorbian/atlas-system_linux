@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <limits.h>
+#include <string.h>
+
+#include "./inc/hls.h"
+#include "./inc/errors.h"
 
 /**
  * find_msb - calculates the most significant bit of n
@@ -22,4 +26,15 @@ uint32_t find_msb(uint32_t n)
     );
 
     return (n);
+}
+
+int main(int argc, char **argv)
+{
+    uint32_t error_num = 2;
+    uint32_t error_type = (find_msb(error_num) - 1);
+
+    printf(
+        template_strings[error_type],
+        argv[0], "9"
+    );
 }
