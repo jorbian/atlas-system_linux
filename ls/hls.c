@@ -16,6 +16,13 @@ int main(int argc, char **argv)
     initalize_context((ls_t *)&context, argc, argv);
     get_child_items((ls_t *)&context);
 
+    quick_sort(
+        context.child_item_names,
+        sizeof(const char *),
+        0,
+        context.num_children,
+        string_compare
+    );
     for (uint32_t i = 0; i < context.num_children; i++)
         printf("%s\n", context.child_item_names[i]);
 

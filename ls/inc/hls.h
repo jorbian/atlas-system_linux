@@ -9,6 +9,14 @@
 #define DEFAULT_OPTION "."
 #define TEST_FOLER_NAME "/home/boller/code/holbertonschool-system_linux"
 #define FLAG_GLYPHS "Aa1l"
+#define FIRST_CHAR(str) ((int)(str[0])) /* decimal value of first char */
+#define NTH_CHAR(str, idx) ((int)(str[idx])) /* same but anywhere else */
+#define IS_ALPHA(c) ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+#define IS_NUMERIC(c) (c >= '0' && c <= '9')
+#define IS_ALPHANUM(c) (IS_ALPHA(c) || IS_NUMERIC(c))
+#define IS_SPACE(c) (c == ' ' || c == '\t' || c == '\n')
+#define TOLOWER(c) ((c >= 'A' && c <= 'Z') ? (c + ('a' - 'A')) : c)
+#define TOUPPER(c) ((c >= 'a' && c <= 'z') ? (c + ('A' - 'a')) : c)
 
 /**
  * enum error_type_t - index of the error type on the other arrays
@@ -45,5 +53,7 @@ typedef struct ls_s
 void initalize_context(ls_t *context, int argc, char **argv);
 void get_child_items(ls_t *context);
 void throw_error(ls_t *context);
-
+int string_compare(void *v1, void *v2);
+void quick_sort(void *v, int size, int left, int right,
+					  int (*comp)(void *, void *));
 #endif

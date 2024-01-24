@@ -2,38 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-/**
- * ZZstrcmp - copypasted version of Apple's old verion of strcmp
- * @s1: pointer to first string
- * @s2: pointer to second string
- *
- * Return: Difference between the two.
-*/
-static int ZZstrcmp(const char *s1, const char *s2)
-{
-	while (*s1 == *s2++)
-		if (*s1++ == '\0')
-			return (0);
+#include "./inc/hls.h"
 
-	return (
-		*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1)
-	);
+/**
+ * check_for_dot - check for the dot and adjust accordingly
+ * @s: string to check
+ *
+ * Return: Pointer to the string.
+*/
+static char *check_for_dot(char *s)
+{
+	if (FIRST_CHAR(s) == 46 && IS_ALPHANUM(NTH_CHAR(s, 1)))
+	{
+		s++;
+	}
+	return (s);
 }
 
 /**
- * string_compare - forward strings to ZZstrcmp
+ * string_compare - forward strings to naive_strcmp
  * @v1: first string
  * @v2: second string
  *
  * Return: Which needs to appear first
 */
-static int string_compare(void *v1, void *v2)
+int string_compare(void *v1, void *v2)
 {
 	char *a1 = *(char **)v1;
 	char *a2 = *(char **)v2;
 
+	a1 = check_for_dot(a1);
+	a2 = check_for_dot(a2);
 
-	return (ZZstrcmp(a1, a2));
+	return (naive_strcmp(a1, a2));
 }
 
 /**
@@ -87,27 +88,4 @@ void quick_sort(void *v, int size, int left, int right,
 	swap(vl, v3, size);
 	quick_sort(v, size, left, last - 1, comp);
 	quick_sort(v, size, last + 1, right, comp);
-}
-
-/**
- * main - asdf
- *
- * Return: Always 0
-*/
-int main(void)
-{
-	char *a[] = {"bbc", ".xcd", "ede", "def", "afg",
-	"hello", "hmmm", "okay", "how" };
-
-	quick_sort(
-		a, sizeof(char *),
-		0, 8,
-		(int (*)(void *, void *))(string_compare)
-	);
-
-	for (int i = 0; i < 9; i++)
-		printf("%s ", a[i]);
-	printf("\n");
-
-	return (0);
 }
