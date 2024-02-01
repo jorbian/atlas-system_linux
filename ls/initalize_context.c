@@ -1,109 +1,124 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
+#include "hls.h"
 
-#include "./inc/hls.h"
-#include "./inc/ZZstring.h"
+static char flag_glyphs[] = {
+	#define FLAG(a, b) b,
+		#include "flag.def"
+	#undef FLAG
+};
 
 /**
- * interpret_flags - interpret generated flag string
- * @context: pointer to the ls_t context struct
- * @flags: string containing potential flags found in args
+ * index_of - finds the first occurance of a character in a string
+ * @p: string to search for the character in
+ * @ch: the character being searched for in the string
  *
+ * Return: Index of the first occurence of the character
 */
-static void interpret_flags(ls_t *context, char *flags)
+static ssize_t index_of(char *p, int ch)
 {
-	char index, *glyphs = FLAG_GLYPHS;
+	char c, *q;
 
-	uint32_t *token = &(context->flag_token);
-	uint32_t *error = &(context->error_info);
+	c = ch;
+	q = p;
 
-	if (flags != NULL)
-		do {
-			index = (char)index_of(glyphs, *flags);
-			if (index != -1)
-				*token = SET_BIT(index, *token);
-			else
-			{
-				*error = SET_BIT(1, *error);
-				context->folder[0] = *flags;
-				context->folder[1] = '\0';
-				throw_error(context);
-			}
-		} while (*(flags++));
+	for (;; ++q)
+	{
+		if (*q == c)
+			return (q - p);
+		if (*q == '\0')
+			return (-1);
+	}
 }
 
 /**
- * find_flags - does a bunch of pointer chenanigans to sort params
- * @context: pointer to the ls_t context struct
- * @flag_buff: buffer to store whatever flag values end up found
- * @params: double pointer to whatever &argv[1] was
+ * flag_setter - modfies the flag token based on glyph
+ * @flag: the glyph found back in parse args
+ * @flag_token: pointer to the flag token on context struct
  *
+ * Return: Whether or not there was some kind of problem.
 */
-static void find_flags(ls_t *context, char *flag_buff, char **params)
+static int flag_setter(char flag, uint32_t *flag_token)
+{
+	ssize_t flag_index = 0;
+
+	if (!flag)
+		return (-1);
+
+	flag_index = index_of(flag_glyphs, flag);
+	if (flag_index != -1)
+		*flag_token |= (1 << flag_index);
+
+	return (0);
+}
+
+/**
+ * parse_args - process arguments by flags &/or directory names
+ * @argv: argument vector, passed from main for processing
+ * @cmd: command data struct
+ *
+ * Return: -1 upon NULL input or logistics failure, 0 otherwise
+*/
+static int parse_args(c_dt *cmd, char **argv)
 {
 	char **i, *j;
 
-	for (i = params; *i; i++)
+	uint32_t flag_token = 0;
+
+	if (!argv || !cmd)
+		return (-1);
+
+	for (i = argv; *i; i++)
 	{
 		j = i[0];
 
 		if (*j == '-')
 		{
-			*flag_buff = *(j + 1);
-			flag_buff++;
+			flag_setter(j[1], &flag_token);
 			continue;
 		}
-		ZZstrncpy(context->folder, *i, MAX_PATH_LEN);
+		_strcpy(cmd->foldername, j);
 	}
-	*flag_buff = '\0';
+	cmd->flags = flag_token;
+
+	return (0);
 }
 
 /**
- * test_folder_path - tests the folder path given in argv
- * @context: pointer to the ls_t context struct
- *
-*/
-static void test_folder_path(ls_t *context)
-{
-	struct stat statbuf;
-
-	if (stat(context->folder, &statbuf) != 0)
-		context->error_info = (
-			SET_BIT(0, context->error_info)
-		);
-
-	if (!context->error_info)
-	{
-		context->non_directory = !S_ISDIR(statbuf.st_mode);
-	}
-}
-
-/**
- * initalize_context - routines to initalize context struct based on argv
- * @context: pointer to the ls_t context struct
- * @argc: number of program arguments passed up from main
+ * initalize_context - intitalize the c_dt context struct
+ * @cmd: pointer to the empty struct back in main
  * @argv: program arguments as passed up from main
  *
 */
-void initalize_context(ls_t *context, int argc, char **argv)
+void initalize_context(c_dt *cmd, char **argv)
 {
-	char flag_buff[DEFAULT_BUFF_SIZE];
+	cmd->dir_count = 0,
+	cmd->dir_list = NULL;
+	cmd->file_count = 0,
+	cmd->file_list = NULL,
+	cmd->flags = 0x00;
 
-	context->flag_token = 0;
-	context->error_info = 0;
-	context->non_directory = 0;
+	parse_args(cmd, argv);
+}
 
-	ZZstrncpy(context->app_name, argv[0], DEFAULT_BUFF_SIZE);
+/**
+ * perform_listing - fill
+ * @argument: argv element
+ * @cmd: command data struct
+ *
+ * Return: -1 upon lstat failure, 0 otherwise
+*/
+int create_entry_list(c_dt *cmd)
+{
+	struct stat file_stat;
 
-	if (argc > 1)
+	if (lstat(cmd->foldername, &file_stat) != -1)
 	{
-		find_flags(context, flag_buff, (char **)&argv[1]);
-		interpret_flags(context, flag_buff);
+		if (S_ISDIR(file_stat.st_mode))
+			add_to_entry_list(cmd->foldername, &cmd->dir_list), cmd->dir_count++;
+		else
+			add_to_entry_list(cmd->foldername, &cmd->file_list), cmd->file_count++;
 	}
 	else
-		ZZstrncpy(context->folder, DEFAULT_OPTION, MAX_PATH_LEN);
+		return (-1);
 
-	test_folder_path(context);
+	return (0);
 }

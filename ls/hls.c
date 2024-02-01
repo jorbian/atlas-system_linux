@@ -1,30 +1,23 @@
-#include <stdio.h>
+#include <stdint.h>
 
-#include "./inc/hls.h"
+#include "hls.h"
 
 /**
- * main - entry point for program
- * @argc: number of arguments passed to program
- * @argv: the contents of those arguments
- *
- * Return: Always '0'--
+ * main - program entry
+ * @argc: argument count to program
+ * @argv: vector of input arguments
+ * Return: 0 upon success
 */
 int main(int argc, char **argv)
 {
-    ls_t context;
+	c_dt cmd;
 
-    initalize_context((ls_t *)&context, argc, argv);
-    get_child_items((ls_t *)&context);
+	if (argc < 2)	
+		exit(1);
 
-    quick_sort(
-        context.child_item_names,
-        sizeof(const char *),
-        0,
-        context.num_children,
-        string_compare
-    );
-    for (uint32_t i = 0; i < context.num_children; i++)
-        printf("%s\n", context.child_item_names[i]);
-
-    return (0);
+	initalize_context(&cmd, argv);
+	create_entry_list(&cmd);
+	print_manager(&cmd);
+	free_cdt(&(cmd.dir_list), &(cmd.file_list));
+	return (0);
 }

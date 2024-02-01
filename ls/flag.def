@@ -1,0 +1,8 @@
+FLAG(ONE, '1')
+FLAG(LONG, 'l')
+FLAG(ALL, 'a')
+FLAG(ALMOST, 'A')
+FLAG(REVERSE, 'r')
+FLAG(SORT, 'S')
+FLAG(TIME, 't')
+#undef FLAG

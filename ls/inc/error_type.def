@@ -1,6 +1,0 @@
-ERROR_TYPE(UNKNOWN, "%s: UNKNOWN ERROR%s%s\n")
-ERROR_TYPE(BAD_OPTION, "%s: invalid option -- '%s'%s\n")
-ERROR_TYPE(CANT_ACCESS, "%s: cannot access '%s': %s\n")
-ERROR_TYPE(CANT_OPEN_DIR, "%s: cannot open directory '%s': %s")
-ERROR_TYPE(MALLOC_FAIL, "%s: memory allocation failure%s%s")
-#undef ERROR_TYPE
