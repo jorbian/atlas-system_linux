@@ -18,7 +18,7 @@ void print_manager(c_dt *cmd)
 {
 	entry_t *tmp_d;
 	entry_t *tmp_f;
-	int printed = 0, loop_flag = 0, print_error = 0;
+	int printed = 0, loop_flag = 0;
 
 	if (cmd->file_count == 1)
 		printer_f(cmd->file_list, cmd->flags, printed, loop_flag),
@@ -29,9 +29,9 @@ void print_manager(c_dt *cmd)
 			printer_f(tmp_f, cmd->flags, printed, loop_flag), printed = 1;
 	if (cmd->dir_count == 1)
 	{
-		print_error = printer_d(cmd->dir_list, cmd->flags, printed, loop_flag);
-		if (print_error)
-			error_dump("./hls", cmd->dir_list->name, print_error);
+		cmd->error_info = printer_d(cmd->dir_list, cmd->flags, printed, loop_flag);
+		if (cmd->error_info)
+			error_dump(cmd);
 		printed = 1;
 	}
 	else if (cmd->dir_count > 1 || cmd->flags & (1 << 7))
@@ -40,16 +40,16 @@ void print_manager(c_dt *cmd)
 			printf("\n"), printed = 0;
 		for (tmp_d = cmd->dir_list, loop_flag = 1; tmp_d; tmp_d = tmp_d->next)
 		{
-			print_error = printer_d(tmp_d, cmd->flags, printed, loop_flag);
-			if (print_error)
-				error_dump("./hls", tmp_d->name, print_error);
-			if (!print_error)
+			cmd->error_info = printer_d(tmp_d, cmd->flags, printed, loop_flag);
+			if (cmd->error_info)
+				error_dump(cmd);
+			if (!cmd->error_info)
 				printed = 1;
 		}
 	}
 	else if (!cmd->dir_count && !cmd->file_count)
 		printer_d(NULL, cmd->flags, printed, loop_flag), printed = 1;
-	if (printed && !print_error)
+	if (printed && !cmd->error_info)
 		printf("\n");
 }
 

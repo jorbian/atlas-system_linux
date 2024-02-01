@@ -7,20 +7,27 @@
  * @code: represents error code
 */
 
-void error_dump(char *exec, char *filename, int code)
+void error_dump(c_dt *cmd)
 {
-	if (code == 2)
+	if (cmd->error_info == 2)
 		fprintf(
 			stderr,
 			"%s: cannot access %s: No such file or directory\n",
-			exec, filename
+			cmd->app_name, cmd->foldername
 		);
-	else if (code == 13)
+	else if (cmd->error_info == 13)
 		fprintf(
 			stderr,
 			"%s: cannot open directory %s: Permission denied\n",
-			exec, filename
+			cmd->app_name, cmd->foldername
 		);
 	else
 		perror("eRrOr");
+
+	free_cdt(
+		&(cmd->dir_list),
+		&(cmd->file_list)
+	);
+
+	exit(1);
 }

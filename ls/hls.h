@@ -37,6 +37,7 @@ typedef struct list_entry
 */
 typedef struct command_data
 {
+	char app_name[16];
 	char foldername[1025];
 	uint32_t flags: 16;
 	uint32_t error_info: 16;
@@ -50,9 +51,9 @@ void initalize_context(c_dt *cmd, char **argv);
 int perform_listing(c_dt *cmd);
 void print_manager(c_dt *cmd);
 int add_to_entry_list(char *filename, entry_t **list);
-int create_entry_list(c_dt *cmd);
+void create_entry_list(c_dt *cmd);
 void free_cdt(entry_t **d_list, entry_t **f_list);
-void error_dump(char *exec, char *filename, int code);
+void error_dump(c_dt *cmd);
 
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *str1, char *str2);

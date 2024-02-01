@@ -1,2 +1,0 @@
-ERROR(CANT_ACCESS, "cannot access '%s'")
-#undef ERROR

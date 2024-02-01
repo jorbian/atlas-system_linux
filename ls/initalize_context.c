@@ -90,13 +90,18 @@ static int parse_args(c_dt *cmd, char **argv)
 */
 void initalize_context(c_dt *cmd, char **argv)
 {
+	_strcpy(cmd->app_name, argv[0]);
+
 	cmd->dir_count = 0,
 	cmd->dir_list = NULL;
 	cmd->file_count = 0,
 	cmd->file_list = NULL,
 	cmd->flags = 0x00;
 
-	parse_args(cmd, argv);
+	parse_args(cmd, &(*(argv + 1)));
+
+	if (cmd->foldername[0] == '\0')
+		_strcpy(cmd->foldername, ".");
 }
 
 /**
@@ -104,9 +109,8 @@ void initalize_context(c_dt *cmd, char **argv)
  * @argument: argv element
  * @cmd: command data struct
  *
- * Return: -1 upon lstat failure, 0 otherwise
 */
-int create_entry_list(c_dt *cmd)
+void create_entry_list(c_dt *cmd)
 {
 	struct stat file_stat;
 
@@ -116,9 +120,7 @@ int create_entry_list(c_dt *cmd)
 			add_to_entry_list(cmd->foldername, &cmd->dir_list), cmd->dir_count++;
 		else
 			add_to_entry_list(cmd->foldername, &cmd->file_list), cmd->file_count++;
+		return;
 	}
-	else
-		return (-1);
-
-	return (0);
+	cmd->error_info = 2;
 }

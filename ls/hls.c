@@ -12,12 +12,20 @@ int main(int argc, char **argv)
 {
 	c_dt cmd;
 
-	if (argc < 2)	
-		exit(1);
+	(void)argc;
 
 	initalize_context(&cmd, argv);
+
 	create_entry_list(&cmd);
+
+	if (cmd.error_info)
+		error_dump(&cmd);
+
 	print_manager(&cmd);
-	free_cdt(&(cmd.dir_list), &(cmd.file_list));
+
+	free_cdt(
+		&(cmd.dir_list),
+		&(cmd.file_list)
+	);
 	return (0);
 }
