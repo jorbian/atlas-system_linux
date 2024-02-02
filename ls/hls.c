@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 	initalize_context(&cmd, argv);
 
 	create_entry_list(&cmd);
-
 	if (cmd.error_info)
 		error_dump(&cmd);
 
